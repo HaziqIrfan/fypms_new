@@ -33,9 +33,9 @@ class User extends Authenticatable implements FilamentUser
 
     protected $hidden = ['password'];
 
-    public function students()
+    public function student()
     {
-        return $this->hasMany(Student::class);
+        return $this->hasOne(Student::class);
     }
 
     public function supervisors()
@@ -50,6 +50,6 @@ class User extends Authenticatable implements FilamentUser
 
     public function isSuperAdmin(): bool
     {
-        return $this->hasRole('super-admin');
+        return true;
     }
 }

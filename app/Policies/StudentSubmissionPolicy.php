@@ -11,66 +11,141 @@ class StudentSubmissionPolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the studentSubmission can view any models.
+     * Determine whether the user can view any models.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(User $user): bool
+    public function viewAny(User $user)
     {
-        return $user->hasPermissionTo('list studentsubmissions');
+        return $user->can('view_any_student::submission');
     }
 
     /**
-     * Determine whether the studentSubmission can view the model.
+     * Determine whether the user can view the model.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\StudentSubmission  $studentSubmission
+     * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, StudentSubmission $model): bool
+    public function view(User $user, StudentSubmission $studentSubmission)
     {
-        return $user->hasPermissionTo('view studentsubmissions');
+        return $user->can('view_student::submission');
     }
 
     /**
-     * Determine whether the studentSubmission can create models.
+     * Determine whether the user can create models.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(User $user): bool
+    public function create(User $user)
     {
-        return $user->hasPermissionTo('create studentsubmissions');
+        return $user->can('create_student::submission');
     }
 
     /**
-     * Determine whether the studentSubmission can update the model.
+     * Determine whether the user can update the model.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\StudentSubmission  $studentSubmission
+     * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, StudentSubmission $model): bool
+    public function update(User $user, StudentSubmission $studentSubmission)
     {
-        return $user->hasPermissionTo('update studentsubmissions');
+        return $user->can('update_student::submission');
     }
 
     /**
-     * Determine whether the studentSubmission can delete the model.
+     * Determine whether the user can delete the model.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\StudentSubmission  $studentSubmission
+     * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, StudentSubmission $model): bool
+    public function delete(User $user, StudentSubmission $studentSubmission)
     {
-        return $user->hasPermissionTo('delete studentsubmissions');
+        return $user->can('delete_student::submission');
     }
 
     /**
-     * Determine whether the user can delete multiple instances of the model.
+     * Determine whether the user can bulk delete.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function deleteAny(User $user): bool
+    public function deleteAny(User $user)
     {
-        return $user->hasPermissionTo('delete studentsubmissions');
+        return $user->can('delete_any_student::submission');
     }
 
     /**
-     * Determine whether the studentSubmission can restore the model.
+     * Determine whether the user can permanently delete.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\StudentSubmission  $studentSubmission
+     * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, StudentSubmission $model): bool
+    public function forceDelete(User $user, StudentSubmission $studentSubmission)
     {
-        return false;
+        return $user->can('force_delete_student::submission');
     }
 
     /**
-     * Determine whether the studentSubmission can permanently delete the model.
+     * Determine whether the user can permanently bulk delete.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, StudentSubmission $model): bool
+    public function forceDeleteAny(User $user)
     {
-        return false;
+        return $user->can('force_delete_any_student::submission');
     }
+
+    /**
+     * Determine whether the user can restore.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\StudentSubmission  $studentSubmission
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function restore(User $user, StudentSubmission $studentSubmission)
+    {
+        return $user->can('restore_student::submission');
+    }
+
+    /**
+     * Determine whether the user can bulk restore.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function restoreAny(User $user)
+    {
+        return $user->can('restore_any_student::submission');
+    }
+
+    /**
+     * Determine whether the user can replicate.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\StudentSubmission  $studentSubmission
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function replicate(User $user, StudentSubmission $studentSubmission)
+    {
+        return $user->can('replicate_student::submission');
+    }
+
+    /**
+     * Determine whether the user can reorder.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function reorder(User $user)
+    {
+        return $user->can('reorder_student::submission');
+    }
+
 }

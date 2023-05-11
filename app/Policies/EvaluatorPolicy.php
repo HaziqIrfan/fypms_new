@@ -11,66 +11,141 @@ class EvaluatorPolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the evaluator can view any models.
+     * Determine whether the user can view any models.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(User $user): bool
+    public function viewAny(User $user)
     {
-        return $user->hasPermissionTo('list evaluators');
+        return $user->can('view_any_evaluator');
     }
 
     /**
-     * Determine whether the evaluator can view the model.
+     * Determine whether the user can view the model.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Evaluator  $evaluator
+     * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Evaluator $model): bool
+    public function view(User $user, Evaluator $evaluator)
     {
-        return $user->hasPermissionTo('view evaluators');
+        return $user->can('view_evaluator');
     }
 
     /**
-     * Determine whether the evaluator can create models.
+     * Determine whether the user can create models.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(User $user): bool
+    public function create(User $user)
     {
-        return $user->hasPermissionTo('create evaluators');
+        return $user->can('create_evaluator');
     }
 
     /**
-     * Determine whether the evaluator can update the model.
+     * Determine whether the user can update the model.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Evaluator  $evaluator
+     * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Evaluator $model): bool
+    public function update(User $user, Evaluator $evaluator)
     {
-        return $user->hasPermissionTo('update evaluators');
+        return $user->can('update_evaluator');
     }
 
     /**
-     * Determine whether the evaluator can delete the model.
+     * Determine whether the user can delete the model.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Evaluator  $evaluator
+     * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Evaluator $model): bool
+    public function delete(User $user, Evaluator $evaluator)
     {
-        return $user->hasPermissionTo('delete evaluators');
+        return $user->can('delete_evaluator');
     }
 
     /**
-     * Determine whether the user can delete multiple instances of the model.
+     * Determine whether the user can bulk delete.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function deleteAny(User $user): bool
+    public function deleteAny(User $user)
     {
-        return $user->hasPermissionTo('delete evaluators');
+        return $user->can('delete_any_evaluator');
     }
 
     /**
-     * Determine whether the evaluator can restore the model.
+     * Determine whether the user can permanently delete.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Evaluator  $evaluator
+     * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Evaluator $model): bool
+    public function forceDelete(User $user, Evaluator $evaluator)
     {
-        return false;
+        return $user->can('force_delete_evaluator');
     }
 
     /**
-     * Determine whether the evaluator can permanently delete the model.
+     * Determine whether the user can permanently bulk delete.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Evaluator $model): bool
+    public function forceDeleteAny(User $user)
     {
-        return false;
+        return $user->can('force_delete_any_evaluator');
     }
+
+    /**
+     * Determine whether the user can restore.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Evaluator  $evaluator
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function restore(User $user, Evaluator $evaluator)
+    {
+        return $user->can('restore_evaluator');
+    }
+
+    /**
+     * Determine whether the user can bulk restore.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function restoreAny(User $user)
+    {
+        return $user->can('restore_any_evaluator');
+    }
+
+    /**
+     * Determine whether the user can replicate.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Evaluator  $evaluator
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function replicate(User $user, Evaluator $evaluator)
+    {
+        return $user->can('replicate_evaluator');
+    }
+
+    /**
+     * Determine whether the user can reorder.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function reorder(User $user)
+    {
+        return $user->can('reorder_evaluator');
+    }
+
 }

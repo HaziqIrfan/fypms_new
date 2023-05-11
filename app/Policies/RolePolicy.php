@@ -3,10 +3,10 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\Evaluation;
+use Spatie\Permission\Models\Role;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class EvaluationPolicy
+class RolePolicy
 {
     use HandlesAuthorization;
 
@@ -18,19 +18,19 @@ class EvaluationPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->can('view_any_evaluation');
+        return $user->can('view_any_role');
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Evaluation  $evaluation
+     * @param  \Spatie\Permission\Models\Role  $role
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Evaluation $evaluation)
+    public function view(User $user, Role $role)
     {
-        return $user->can('view_evaluation');
+        return $user->can('view_role');
     }
 
     /**
@@ -41,31 +41,31 @@ class EvaluationPolicy
      */
     public function create(User $user)
     {
-        return $user->can('create_evaluation');
+        return $user->can('create_role');
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Evaluation  $evaluation
+     * @param  \Spatie\Permission\Models\Role  $role
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Evaluation $evaluation)
+    public function update(User $user, Role $role)
     {
-        return $user->can('update_evaluation');
+        return $user->can('update_role');
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Evaluation  $evaluation
+     * @param  \Spatie\Permission\Models\Role  $role
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Evaluation $evaluation)
+    public function delete(User $user, Role $role)
     {
-        return $user->can('delete_evaluation');
+        return $user->can('delete_role');
     }
 
     /**
@@ -76,19 +76,19 @@ class EvaluationPolicy
      */
     public function deleteAny(User $user)
     {
-        return $user->can('delete_any_evaluation');
+        return $user->can('delete_any_role');
     }
 
     /**
      * Determine whether the user can permanently delete.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Evaluation  $evaluation
+     * @param  \Spatie\Permission\Models\Role  $role
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Evaluation $evaluation)
+    public function forceDelete(User $user, Role $role)
     {
-        return $user->can('force_delete_evaluation');
+        return $user->can('{{ ForceDelete }}');
     }
 
     /**
@@ -99,19 +99,19 @@ class EvaluationPolicy
      */
     public function forceDeleteAny(User $user)
     {
-        return $user->can('force_delete_any_evaluation');
+        return $user->can('{{ ForceDeleteAny }}');
     }
 
     /**
      * Determine whether the user can restore.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Evaluation  $evaluation
+     * @param  \Spatie\Permission\Models\Role  $role
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Evaluation $evaluation)
+    public function restore(User $user, Role $role)
     {
-        return $user->can('restore_evaluation');
+        return $user->can('{{ Restore }}');
     }
 
     /**
@@ -122,19 +122,19 @@ class EvaluationPolicy
      */
     public function restoreAny(User $user)
     {
-        return $user->can('restore_any_evaluation');
+        return $user->can('{{ RestoreAny }}');
     }
 
     /**
      * Determine whether the user can replicate.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Evaluation  $evaluation
+     * @param  \Spatie\Permission\Models\Role  $role
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function replicate(User $user, Evaluation $evaluation)
+    public function replicate(User $user, Role $role)
     {
-        return $user->can('replicate_evaluation');
+        return $user->can('{{ Replicate }}');
     }
 
     /**
@@ -145,7 +145,7 @@ class EvaluationPolicy
      */
     public function reorder(User $user)
     {
-        return $user->can('reorder_evaluation');
+        return $user->can('{{ Reorder }}');
     }
 
 }
