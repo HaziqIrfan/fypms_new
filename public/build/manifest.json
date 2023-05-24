@@ -1,8 +1,13 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-2d9a6fd4.css",
+    "file": "assets/app-5dab9ac6.css",
     "isEntry": true,
     "src": "resources/css/app.css"
+  },
+  "resources/css/filament.css": {
+    "file": "assets/filament-7c205db8.css",
+    "isEntry": true,
+    "src": "resources/css/filament.css"
   },
   "resources/js/app.js": {
     "file": "assets/app-82b8f21a.js",

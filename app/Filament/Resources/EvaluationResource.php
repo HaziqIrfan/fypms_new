@@ -17,7 +17,7 @@ class EvaluationResource extends Resource
 {
     protected static ?string $model = Evaluation::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-clipboard-list'; //change icon navside-bar
 
     protected static ?string $recordTitleAttribute = 'title';
 

@@ -14,13 +14,13 @@ class Student extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'sv_name',
         'project_title',
         'psm_status',
         'year',
         'program',
         'pa_name',
         'user_id',
+        'supervisor_id',
     ];
 
     protected $searchableFields = ['*'];
@@ -30,9 +30,9 @@ class Student extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function supervisors()
+    public function supervisor()
     {
-        return $this->hasMany(Supervisor::class);
+        return $this->belongsTo(Supervisor::class);
     }
 
     public function logbooks()
@@ -48,5 +48,15 @@ class Student extends Model
     public function evaluationResults()
     {
         return $this->hasMany(EvaluationResult::class);
+    }
+
+    public function evaluators()
+    {
+        return $this->belongsToMany(Evaluator::class);
+    }
+
+    public function getNameAttribute()
+    {
+        return $this->user->name; 
     }
 }

@@ -6,6 +6,7 @@ use App\Models\Scopes\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Evaluator extends Model
 {
@@ -25,5 +26,10 @@ class Evaluator extends Model
     public function evaluationResults()
     {
         return $this->hasMany(EvaluationResult::class);
+    }
+
+    public function students(){
+
+        return $this->belongsToMany(Student::class);
     }
 }

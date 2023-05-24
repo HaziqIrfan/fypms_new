@@ -81,7 +81,6 @@ class LogbooksRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('approval_date')->date(),
                 Tables\Columns\TextColumn::make('description')->date(),
                 Tables\Columns\TextColumn::make('comment')->limit(50),
-                Tables\Columns\TextColumn::make('student.sv_name')->limit(50),
             ])
             ->filters([
                 Tables\Filters\Filter::make('created_at')
@@ -114,11 +113,7 @@ class LogbooksRelationManager extends RelationManager
                                 )
                             );
                     }),
-
-                MultiSelectFilter::make('student_id')->relationship(
-                    'student',
-                    'sv_name'
-                ),
+                
             ])
             ->headerActions([Tables\Actions\CreateAction::make()])
             ->actions([

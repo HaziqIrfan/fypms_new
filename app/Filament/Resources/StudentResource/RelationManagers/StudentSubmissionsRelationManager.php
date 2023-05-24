@@ -52,7 +52,6 @@ class StudentSubmissionsRelationManager extends RelationManager
             ->columns([
                 Tables\Columns\TextColumn::make('file_path')->limit(50),
                 Tables\Columns\TextColumn::make('submission.title')->limit(50),
-                Tables\Columns\TextColumn::make('student.sv_name')->limit(50),
             ])
             ->filters([
                 Tables\Filters\Filter::make('created_at')
@@ -89,11 +88,6 @@ class StudentSubmissionsRelationManager extends RelationManager
                 MultiSelectFilter::make('submission_id')->relationship(
                     'submission',
                     'title'
-                ),
-
-                MultiSelectFilter::make('student_id')->relationship(
-                    'student',
-                    'sv_name'
                 ),
             ])
             ->headerActions([Tables\Actions\CreateAction::make()])

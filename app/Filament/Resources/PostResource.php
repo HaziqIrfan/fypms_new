@@ -16,7 +16,7 @@ class PostResource extends Resource
 {
     protected static ?string $model = Post::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-desktop-computer'; //change icon navside-bar
 
     protected static ?string $recordTitleAttribute = 'title';
 

@@ -15,7 +15,6 @@ return new class extends Migration {
             $table->string('background');
             $table->string('availability');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('student_id');
 
             $table->timestamps();
             $table->softDeletes();

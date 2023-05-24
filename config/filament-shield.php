@@ -23,7 +23,7 @@ return [
     ],
 
     'filament_user' => [
-        'enabled' => true,
+        'enabled' => false,
         'name' => 'filament_user',
     ],
 
@@ -33,14 +33,14 @@ return [
             'view_any',
             'create',
             'update',
-            'restore',
-            'restore_any',
-            'replicate',
-            'reorder',
+            // 'restore',
+            // 'restore_any',
+            // 'replicate',
+            // 'reorder',
             'delete',
             'delete_any',
-            'force_delete',
-            'force_delete_any',
+            // 'force_delete',
+            // 'force_delete_any',
         ],
 
         'page' => 'page',
@@ -48,8 +48,8 @@ return [
     ],
 
     'entities' => [
-        'pages' => true,
-        'widgets' => true,
+        'pages' => false,
+        'widgets' => false,
         'resources' => true,
         'custom_permissions' => false,
     ],

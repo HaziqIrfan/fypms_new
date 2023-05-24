@@ -23,13 +23,13 @@ class StudentFactory extends Factory
     public function definition(): array
     {
         return [
-            'sv_name' => $this->faker->text(255),
             'project_title' => $this->faker->text(255),
             'psm_status' => $this->faker->text(255),
             'year' => $this->faker->text(255),
             'program' => $this->faker->text(255),
             'pa_name' => $this->faker->text(255),
             'user_id' => \App\Models\User::factory(),
+            'supervisor_id' => \App\Models\Supervisor::factory(),
         ];
     }
 }

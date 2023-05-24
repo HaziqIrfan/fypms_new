@@ -38,7 +38,6 @@ class SupervisorController extends Controller
         $this->authorize('create', Supervisor::class);
 
         $users = User::pluck('name', 'id');
-        $students = Student::pluck('sv_name', 'id');
 
         return view('app.supervisors.create', compact('users', 'students'));
     }
@@ -77,7 +76,6 @@ class SupervisorController extends Controller
         $this->authorize('update', $supervisor);
 
         $users = User::pluck('name', 'id');
-        $students = Student::pluck('sv_name', 'id');
 
         return view(
             'app.supervisors.edit',

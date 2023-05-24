@@ -18,12 +18,6 @@ return new class extends Migration {
                 ->onUpdate('CASCADE')
                 ->onDelete('CASCADE');
 
-            $table
-                ->foreign('student_id')
-                ->references('id')
-                ->on('students')
-                ->onUpdate('CASCADE')
-                ->onDelete('CASCADE');
         });
     }
 
@@ -34,7 +28,6 @@ return new class extends Migration {
     {
         Schema::table('supervisors', function (Blueprint $table) {
             $table->dropForeign(['user_id']);
-            $table->dropForeign(['student_id']);
         });
     }
 };

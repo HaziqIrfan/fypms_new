@@ -41,8 +41,6 @@ class StudentSubmissionController extends Controller
         $this->authorize('create', StudentSubmission::class);
 
         $submissions = Submission::pluck('title', 'id');
-        $students = Student::pluck('sv_name', 'id');
-
         return view(
             'app.student_submissions.create',
             compact('submissions', 'students')
@@ -91,8 +89,6 @@ class StudentSubmissionController extends Controller
         $this->authorize('update', $studentSubmission);
 
         $submissions = Submission::pluck('title', 'id');
-        $students = Student::pluck('sv_name', 'id');
-
         return view(
             'app.student_submissions.edit',
             compact('studentSubmission', 'submissions', 'students')

@@ -42,7 +42,6 @@ class EvaluationResultController extends Controller
         $this->authorize('create', EvaluationResult::class);
 
         $evaluations = Evaluation::pluck('title', 'id');
-        $students = Student::pluck('sv_name', 'id');
         $evaluators = Evaluator::pluck('id', 'id');
 
         return view(
@@ -90,7 +89,6 @@ class EvaluationResultController extends Controller
         $this->authorize('update', $evaluationResult);
 
         $evaluations = Evaluation::pluck('title', 'id');
-        $students = Student::pluck('sv_name', 'id');
         $evaluators = Evaluator::pluck('id', 'id');
 
         return view(

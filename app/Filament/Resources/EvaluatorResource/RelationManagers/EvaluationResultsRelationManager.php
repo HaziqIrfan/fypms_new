@@ -43,16 +43,6 @@ class EvaluationResultsRelationManager extends RelationManager
                         'lg' => 12,
                     ]),
 
-                Select::make('student_id')
-                    ->rules(['exists:students,id'])
-                    ->relationship('student', 'sv_name')
-                    ->searchable()
-                    ->placeholder('Student')
-                    ->columnSpan([
-                        'default' => 12,
-                        'md' => 12,
-                        'lg' => 12,
-                    ]),
             ]),
         ]);
     }
@@ -63,7 +53,6 @@ class EvaluationResultsRelationManager extends RelationManager
             ->columns([
                 Tables\Columns\TextColumn::make('mark')->limit(50),
                 Tables\Columns\TextColumn::make('evaluation.title')->limit(50),
-                Tables\Columns\TextColumn::make('student.sv_name')->limit(50),
                 Tables\Columns\TextColumn::make('evaluator.id')->limit(50),
             ])
             ->filters([
@@ -101,11 +90,6 @@ class EvaluationResultsRelationManager extends RelationManager
                 MultiSelectFilter::make('evaluation_id')->relationship(
                     'evaluation',
                     'title'
-                ),
-
-                MultiSelectFilter::make('student_id')->relationship(
-                    'student',
-                    'sv_name'
                 ),
 
                 MultiSelectFilter::make('evaluator_id')->relationship(

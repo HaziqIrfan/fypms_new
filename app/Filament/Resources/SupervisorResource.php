@@ -12,20 +12,67 @@ use Filament\Forms\Components\TextInput;
 use Filament\Tables\Filters\SelectFilter;
 use App\Filament\Filters\DateRangeFilter;
 use App\Filament\Resources\SupervisorResource\Pages;
+use Illuminate\Database\Eloquent\Model;
+use Livewire\Component;
 
 class SupervisorResource extends Resource
 {
     protected static ?string $model = Supervisor::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-users'; //change icon navside-bar
 
-    protected static ?string $recordTitleAttribute = 'background';
+    protected static ?string $recordTitleAttribute = 'user.name';
 
     public static function form(Form $form): Form
     {
         return $form->schema([
             Card::make()->schema([
                 Grid::make(['default' => 0])->schema([
+                    TextInput::make('user.name') //user.name = table user, column name 
+                        ->rules(['max:255', 'string'])
+                        ->required()
+                        ->placeholder('Name')
+                        ->columnSpan([
+                            'default' => 12,
+                            'md' => 12,
+                            'lg' => 12,
+                        ]),
+
+                    TextInput::make('user.email') //user.email = table user, column email 
+                        ->rules(['email'])
+                        ->required()
+                        ->unique(
+                            'users',
+                            'email',
+                            function (?Model $record) {
+                                if ($record != null) {
+                                    return $record->user;
+                                }
+                            }
+                        )
+                        ->email()
+                        ->placeholder('Email')
+                        ->columnSpan([
+                            'default' => 12,
+                            'md' => 12,
+                            'lg' => 12,
+                        ]),
+
+                    TextInput::make('user.password')
+                        ->required()
+                        ->password()
+                        ->dehydrateStateUsing(fn ($state) => \Hash::make($state)) //hash-auto encrypt password
+                        ->required(
+                            fn (Component $livewire) => $livewire instanceof
+                                Pages\CreateSupervisor
+                        )
+                        ->placeholder('Password')
+                        ->columnSpan([
+                            'default' => 12,
+                            'md' => 12,
+                            'lg' => 12,
+                        ]),
+
                     TextInput::make('background')
                         ->rules(['max:255', 'string'])
                         ->required()
@@ -46,29 +93,18 @@ class SupervisorResource extends Resource
                             'lg' => 12,
                         ]),
 
-                    Select::make('user_id')
-                        ->rules(['exists:users,id'])
-                        ->required()
-                        ->relationship('user', 'name')
-                        ->searchable()
-                        ->placeholder('User')
-                        ->columnSpan([
-                            'default' => 12,
-                            'md' => 12,
-                            'lg' => 12,
-                        ]),
+                    // Select::make('user_id')
+                    //     ->rules(['exists:users,id'])
+                    //     ->required()
+                    //     ->relationship('user', 'name')
+                    //     ->searchable()
+                    //     ->placeholder('User')
+                    //     ->columnSpan([
+                    //         'default' => 12,
+                    //         'md' => 12,
+                    //         'lg' => 12,
+                    //     ]),
 
-                    Select::make('student_id')
-                        ->rules(['exists:students,id'])
-                        ->required()
-                        ->relationship('student', 'sv_name')
-                        ->searchable()
-                        ->placeholder('Student')
-                        ->columnSpan([
-                            'default' => 12,
-                            'md' => 12,
-                            'lg' => 12,
-                        ]),
                 ]),
             ]),
         ]);
@@ -90,9 +126,6 @@ class SupervisorResource extends Resource
                 Tables\Columns\TextColumn::make('user.name')
                     ->toggleable()
                     ->limit(50),
-                Tables\Columns\TextColumn::make('student.sv_name')
-                    ->toggleable()
-                    ->limit(50),
             ])
             ->filters([
                 DateRangeFilter::make('created_at'),
@@ -103,17 +136,15 @@ class SupervisorResource extends Resource
                     ->multiple()
                     ->label('User'),
 
-                SelectFilter::make('student_id')
-                    ->relationship('student', 'sv_name')
-                    ->indicator('Student')
-                    ->multiple()
-                    ->label('Student'),
+     
             ]);
     }
 
     public static function getRelations(): array
     {
-        return [];
+        return [
+            SupervisorResource\RelationManagers\StudentsRelationManager::class,
+        ];
     }
 
     public static function getPages(): array

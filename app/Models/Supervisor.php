@@ -17,7 +17,6 @@ class Supervisor extends Model
         'background',
         'availability',
         'user_id',
-        'student_id',
     ];
 
     protected $searchableFields = ['*'];
@@ -27,8 +26,13 @@ class Supervisor extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function student()
+    public function students()
     {
-        return $this->belongsTo(Student::class);
+        return $this->hasMany(Student::class);
+    }
+
+    public function getNameAttribute()
+    {
+        return $this->user->name; 
     }
 }

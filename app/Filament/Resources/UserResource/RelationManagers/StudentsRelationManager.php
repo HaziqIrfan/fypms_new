@@ -17,20 +17,10 @@ class StudentsRelationManager extends RelationManager
 {
     protected static string $relationship = 'students';
 
-    protected static ?string $recordTitleAttribute = 'sv_name';
-
-    public static function form(Form $form): Form
+     public static function form(Form $form): Form
     {
         return $form->schema([
             Grid::make(['default' => 0])->schema([
-                TextInput::make('sv_name')
-                    ->rules(['max:255', 'string'])
-                    ->placeholder('Sv Name')
-                    ->columnSpan([
-                        'default' => 12,
-                        'md' => 12,
-                        'lg' => 12,
-                    ]),
 
                 TextInput::make('project_title')
                     ->rules(['max:255', 'string'])
@@ -84,7 +74,6 @@ class StudentsRelationManager extends RelationManager
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('sv_name')->limit(50),
                 Tables\Columns\TextColumn::make('project_title')->limit(50),
                 Tables\Columns\TextColumn::make('psm_status')->limit(50),
                 Tables\Columns\TextColumn::make('year')->limit(50),

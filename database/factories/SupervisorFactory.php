@@ -26,7 +26,6 @@ class SupervisorFactory extends Factory
             'background' => $this->faker->text(255),
             'availability' => $this->faker->text(255),
             'user_id' => \App\Models\User::factory(),
-            'student_id' => \App\Models\Student::factory(),
         ];
     }
 }

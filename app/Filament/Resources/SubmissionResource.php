@@ -16,7 +16,7 @@ class SubmissionResource extends Resource
 {
     protected static ?string $model = Submission::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-document-text'; //change icon navside-bar
 
     protected static ?string $recordTitleAttribute = 'title';
 

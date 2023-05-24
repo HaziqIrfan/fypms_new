@@ -43,9 +43,9 @@ class User extends Authenticatable implements FilamentUser
         return $this->hasMany(Supervisor::class);
     }
 
-    public function evaluators()
+    public function evaluator()
     {
-        return $this->hasMany(Evaluator::class);
+        return $this->hasOne(Evaluator::class);
     }
 
     public function isSuperAdmin(): bool

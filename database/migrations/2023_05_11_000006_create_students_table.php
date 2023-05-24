@@ -12,13 +12,13 @@ return new class extends Migration {
     {
         Schema::create('students', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('sv_name');
             $table->string('project_title');
             $table->string('psm_status');
             $table->string('year');
             $table->string('program');
             $table->string('pa_name');
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('supervisor_id');
 
             $table->timestamps();
             $table->softDeletes();

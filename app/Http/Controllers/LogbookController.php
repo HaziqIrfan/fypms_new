@@ -36,8 +36,6 @@ class LogbookController extends Controller
     {
         $this->authorize('create', Logbook::class);
 
-        $students = Student::pluck('sv_name', 'id');
-
         return view('app.logbooks.create', compact('students'));
     }
 
@@ -73,8 +71,6 @@ class LogbookController extends Controller
     public function edit(Request $request, Logbook $logbook): View
     {
         $this->authorize('update', $logbook);
-
-        $students = Student::pluck('sv_name', 'id');
 
         return view('app.logbooks.edit', compact('logbook', 'students'));
     }

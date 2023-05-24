@@ -15,7 +15,7 @@ use Filament\Resources\RelationManagers\RelationManager;
 
 class SupervisorsRelationManager extends RelationManager
 {
-    protected static string $relationship = 'supervisors';
+    protected static string $relationship = 'supervisor';
 
     protected static ?string $recordTitleAttribute = 'background';
 
@@ -62,7 +62,6 @@ class SupervisorsRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('background')->limit(50),
                 Tables\Columns\TextColumn::make('availability')->limit(50),
                 Tables\Columns\TextColumn::make('user.name')->limit(50),
-                Tables\Columns\TextColumn::make('student.sv_name')->limit(50),
             ])
             ->filters([
                 Tables\Filters\Filter::make('created_at')
@@ -101,10 +100,7 @@ class SupervisorsRelationManager extends RelationManager
                     'name'
                 ),
 
-                MultiSelectFilter::make('student_id')->relationship(
-                    'student',
-                    'sv_name'
-                ),
+               
             ])
             ->headerActions([Tables\Actions\CreateAction::make()])
             ->actions([

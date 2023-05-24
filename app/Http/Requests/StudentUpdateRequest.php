@@ -20,7 +20,6 @@ class StudentUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'sv_name' => ['required', 'max:255', 'string'],
             'project_title' => ['required', 'max:255', 'string'],
             'psm_status' => ['required', 'max:255', 'string'],
             'year' => ['required', 'max:255', 'string'],

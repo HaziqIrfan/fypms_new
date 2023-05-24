@@ -11,26 +11,64 @@ use Filament\Forms\Components\Select;
 use Filament\Tables\Filters\SelectFilter;
 use App\Filament\Filters\DateRangeFilter;
 use App\Filament\Resources\EvaluatorResource\Pages;
+use Filament\Forms\Components\Builder;
+use Filament\Forms\Components\TextInput;
+use Illuminate\Database\Eloquent\Model;
+use Livewire\Component;
 
 class EvaluatorResource extends Resource
 {
     protected static ?string $model = Evaluator::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-users'; //change icon navside-bar
 
-    protected static ?string $recordTitleAttribute = 'id';
+    protected static ?string $recordTitleAttribute = 'user.name';
+
 
     public static function form(Form $form): Form
     {
         return $form->schema([
             Card::make()->schema([
                 Grid::make(['default' => 0])->schema([
-                    Select::make('user_id')
-                        ->rules(['exists:users,id'])
+                    TextInput::make('user.name') //user.name = table user, column name 
+                        ->rules(['max:255', 'string'])
                         ->required()
-                        ->relationship('user', 'name')
-                        ->searchable()
-                        ->placeholder('User')
+                        ->placeholder('Name')
+                        ->columnSpan([
+                            'default' => 12,
+                            'md' => 12,
+                            'lg' => 12,
+                        ]),
+
+                    TextInput::make('user.email') //user.email = table user, column email 
+                        ->rules(['email'])
+                        ->required()
+                        ->unique(
+                            'users',
+                            'email',
+                            function (?Model $record) {
+                                if ($record != null) {
+                                    return $record->user;
+                                }
+                            }
+                        )
+                        ->email()
+                        ->placeholder('Email')
+                        ->columnSpan([
+                            'default' => 12,
+                            'md' => 12,
+                            'lg' => 12,
+                        ]),
+
+                    TextInput::make('user.password')
+                        ->required()
+                        ->password()
+                        ->dehydrateStateUsing(fn ($state) => \Hash::make($state)) //hash-auto encrypt password
+                        ->required(
+                            fn (Component $livewire) => $livewire instanceof
+                                Pages\CreateEvaluator
+                        )
+                        ->placeholder('Password')
                         ->columnSpan([
                             'default' => 12,
                             'md' => 12,
@@ -47,7 +85,7 @@ class EvaluatorResource extends Resource
             ->poll('60s')
             ->columns([
                 Tables\Columns\TextColumn::make('user.name')
-                    ->toggleable()
+                    ->searchable() //search by name
                     ->limit(50),
             ])
             ->filters([
@@ -64,7 +102,7 @@ class EvaluatorResource extends Resource
     public static function getRelations(): array
     {
         return [
-            EvaluatorResource\RelationManagers\EvaluationResultsRelationManager::class,
+            EvaluatorResource\RelationManagers\StudentsRelationManager::class,
         ];
     }
 

@@ -26,36 +26,36 @@ use App\Http\Controllers\StudentSubmissionController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Route::middleware(['auth:sanctum', 'verified'])
-    ->get('/dashboard', function () {
-        return view('dashboard');
-    })
-    ->name('dashboard');
+// Route::middleware(['auth:sanctum', 'verified'])
+//     ->get('/dashboard', function () {
+//         return view('dashboard');
+//     })
+//     ->name('dashboard');
 
-Route::prefix('/')
-    ->middleware(['auth:sanctum', 'verified'])
-    ->group(function () {
-        Route::resource('roles', RoleController::class);
-        Route::resource('permissions', PermissionController::class);
+// Route::prefix('/')
+//     ->middleware(['auth:sanctum', 'verified'])
+//     ->group(function () {
+//         Route::resource('roles', RoleController::class);
+//         Route::resource('permissions', PermissionController::class);
 
-        Route::resource(
-            'student-submissions',
-            StudentSubmissionController::class
-        );
-        Route::resource('evaluations', EvaluationController::class);
-        Route::resource(
-            'evaluation-results',
-            EvaluationResultController::class
-        );
-        Route::resource('evaluators', EvaluatorController::class);
-        Route::resource('logbooks', LogbookController::class);
-        Route::resource('posts', PostController::class);
-        Route::resource('students', StudentController::class);
-        Route::resource('submissions', SubmissionController::class);
-        Route::resource('supervisors', SupervisorController::class);
-        Route::resource('users', UserController::class);
-    });
+//         Route::resource(
+//             'student-submissions',
+//             StudentSubmissionController::class
+//         );
+//         Route::resource('evaluations', EvaluationController::class);
+//         Route::resource(
+//             'evaluation-results',
+//             EvaluationResultController::class
+//         );
+//         Route::resource('evaluators', EvaluatorController::class);
+//         Route::resource('logbooks', LogbookController::class);
+//         Route::resource('posts', PostController::class);
+//         Route::resource('students', StudentController::class);
+//         Route::resource('submissions', SubmissionController::class);
+//         Route::resource('supervisors', SupervisorController::class);
+//         Route::resource('users', UserController::class);
+//     });

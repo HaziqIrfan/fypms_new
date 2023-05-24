@@ -17,7 +17,7 @@ class StudentSubmissionResource extends Resource
 {
     protected static ?string $model = StudentSubmission::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-cloud-download'; //change icon navside-bar
 
     protected static ?string $recordTitleAttribute = 'file_path';
 
@@ -48,17 +48,6 @@ class StudentSubmissionResource extends Resource
                             'lg' => 12,
                         ]),
 
-                    Select::make('student_id')
-                        ->rules(['exists:students,id'])
-                        ->required()
-                        ->relationship('student', 'sv_name')
-                        ->searchable()
-                        ->placeholder('Student')
-                        ->columnSpan([
-                            'default' => 12,
-                            'md' => 12,
-                            'lg' => 12,
-                        ]),
                 ]),
             ]),
         ]);
@@ -76,9 +65,6 @@ class StudentSubmissionResource extends Resource
                 Tables\Columns\TextColumn::make('submission.title')
                     ->toggleable()
                     ->limit(50),
-                Tables\Columns\TextColumn::make('student.sv_name')
-                    ->toggleable()
-                    ->limit(50),
             ])
             ->filters([
                 DateRangeFilter::make('created_at'),
@@ -88,12 +74,6 @@ class StudentSubmissionResource extends Resource
                     ->indicator('Submission')
                     ->multiple()
                     ->label('Submission'),
-
-                SelectFilter::make('student_id')
-                    ->relationship('student', 'sv_name')
-                    ->indicator('Student')
-                    ->multiple()
-                    ->label('Student'),
             ]);
     }
 

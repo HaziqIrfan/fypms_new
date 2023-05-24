@@ -17,7 +17,7 @@ class EvaluationResultResource extends Resource
 {
     protected static ?string $model = EvaluationResult::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-clipboard-check'; //change icon navside-bar
 
     protected static ?string $recordTitleAttribute = 'mark';
 
@@ -42,18 +42,6 @@ class EvaluationResultResource extends Resource
                         ->relationship('evaluation', 'title')
                         ->searchable()
                         ->placeholder('Evaluation')
-                        ->columnSpan([
-                            'default' => 12,
-                            'md' => 12,
-                            'lg' => 12,
-                        ]),
-
-                    Select::make('student_id')
-                        ->rules(['exists:students,id'])
-                        ->required()
-                        ->relationship('student', 'sv_name')
-                        ->searchable()
-                        ->placeholder('Student')
                         ->columnSpan([
                             'default' => 12,
                             'md' => 12,
@@ -88,9 +76,6 @@ class EvaluationResultResource extends Resource
                 Tables\Columns\TextColumn::make('evaluation.title')
                     ->toggleable()
                     ->limit(50),
-                Tables\Columns\TextColumn::make('student.sv_name')
-                    ->toggleable()
-                    ->limit(50),
                 Tables\Columns\TextColumn::make('evaluator.id')
                     ->toggleable()
                     ->limit(50),
@@ -103,12 +88,6 @@ class EvaluationResultResource extends Resource
                     ->indicator('Evaluation')
                     ->multiple()
                     ->label('Evaluation'),
-
-                SelectFilter::make('student_id')
-                    ->relationship('student', 'sv_name')
-                    ->indicator('Student')
-                    ->multiple()
-                    ->label('Student'),
 
                 SelectFilter::make('evaluator_id')
                     ->relationship('evaluator', 'id')
