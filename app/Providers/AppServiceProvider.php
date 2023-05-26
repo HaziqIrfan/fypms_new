@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Filament\Facades\Filament;
+use Filament\Navigation\UserMenuItem;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -22,6 +23,12 @@ class AppServiceProvider extends ServiceProvider
         Filament::serving(function () {
             // Using Vite
             Filament::registerViteTheme('resources/css/filament.css');
+            Filament::registerUserMenuItems([
+                UserMenuItem::make()
+                    ->label(auth()->check() ? auth()->user()->roles->first()->name : "")
+                    // ->url(route('filament.pages.settings'))
+                    ->icon(''),
+            ]);
         });
     }
 }

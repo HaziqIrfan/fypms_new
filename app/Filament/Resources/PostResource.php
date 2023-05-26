@@ -11,6 +11,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\RichEditor;
 use App\Filament\Filters\DateRangeFilter;
 use App\Filament\Resources\PostResource\Pages;
+use Filament\Forms\Components\FileUpload;
 
 class PostResource extends Resource
 {
@@ -45,16 +46,24 @@ class PostResource extends Resource
                             'lg' => 12,
                         ]),
 
-                    RichEditor::make('file_path')
-                        ->rules(['max:255', 'string'])
-                        ->required()
-                        ->placeholder('File Path')
-                        ->columnSpan([
-                            'default' => 12,
-                            'md' => 12,
-                            'lg' => 12,
-                        ]),
+                    // RichEditor::make('file_path')
+                    //     ->rules(['max:255', 'string'])
+                    //     ->required()
+                    //     ->placeholder('File Path')
+                    //     ->columnSpan([
+                    //         'default' => 12,
+                    //         'md' => 12,
+                    //         'lg' => 12,
+                    //     ]),
+                        
                 ]),
+
+                FileUpload::make('file_path') //Refer documentation filament: #File upload
+                ->disk('posts')
+                // ->multiple()
+                ->enableReordering()
+                ->enableOpen()
+                ->enableDownload()
             ]),
         ]);
     }
