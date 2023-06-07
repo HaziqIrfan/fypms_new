@@ -3,7 +3,10 @@
 namespace App\Filament\Pages;
 
 use App\Filament\Widgets\DashboardOverview;
+use App\Filament\Widgets\EvaluatorListOverview;
 use App\Filament\Widgets\StatsOverview;
+use App\Filament\Widgets\StudentListOverview;
+use App\Filament\Widgets\SupervisorListOverview;
 use App\Models\User;
 use Filament\Pages\Page;
 use Illuminate\Support\Facades\Auth;
@@ -32,29 +35,29 @@ class DashboardPage extends Page
             //Condition check
 
             $user = Auth::user();
-            return [DashboardOverview::class, StatsOverview::class];
+            return [];
         } else if (Auth::user()->hasRole('Supervisor')) {
 
             //Condition check
             $user = Auth::user();
-            return [DashboardOverview::class, StatsOverview::class];
+            return [StudentListOverview::class];
         } else if (Auth::user()->hasRole('Evaluator')) {
 
             //Condition check
             $user = Auth::user();
-            return [DashboardOverview::class, StatsOverview::class];
+            return [StudentListOverview::class];
         } else if (Auth::user()->hasRole('Coordinator')) {
 
             //Condition check
             $user = Auth::user();
-            return [DashboardOverview::class, StatsOverview::class];
-        } else if (Auth::user()->hasRole('SuperAdmin')) {
+            return [StudentListOverview::class, SupervisorListOverview::class, EvaluatorListOverview::class];
+        } else if (Auth::user()->hasRole('Super Admin')) {
 
             //Condition check
             $user = Auth::user();
-            return [DashboardOverview::class, StatsOverview::class];
+            return [StudentListOverview::class, SupervisorListOverview::class, EvaluatorListOverview::class];
         }
 
-        return [DashboardOverview::class, StatsOverview::class];
+        return [StudentListOverview::class, SupervisorListOverview::class, EvaluatorListOverview::class];
     }
 }

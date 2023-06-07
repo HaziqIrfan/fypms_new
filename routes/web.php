@@ -26,9 +26,10 @@ use App\Http\Controllers\StudentSubmissionController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+
+    return redirect('login');
+});
 
 // Route::middleware(['auth:sanctum', 'verified'])
 //     ->get('/dashboard', function () {

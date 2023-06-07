@@ -12,16 +12,43 @@ use Filament\Forms\Components\TextInput;
 use Filament\Tables\Filters\SelectFilter;
 use App\Filament\Filters\DateRangeFilter;
 use App\Filament\Resources\SupervisorResource\Pages;
+use App\Models\Student;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class SupervisorResource extends Resource
 {
     protected static ?string $model = Supervisor::class;
 
+    protected static ?string $slug = "lecturers"; //change navigation label
+
     protected static ?string $navigationIcon = 'heroicon-o-users'; //change icon navside-bar
 
     protected static ?string $recordTitleAttribute = 'user.name';
+
+
+    public static function getPluralModelLabel(): string
+    {
+
+        return "Lecturers";
+    }
+
+    public static function getModelLabel(): string
+    {
+        return "Lecturer";
+    }
+
+    protected static function shouldRegisterNavigation(): bool
+    {
+        if (Auth::user()->hasRole('Coordinator') || Auth::user()->hasRole('Super Admin')) {
+
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     public static function form(Form $form): Form
     {
@@ -136,7 +163,7 @@ class SupervisorResource extends Resource
                     ->multiple()
                     ->label('User'),
 
-     
+
             ]);
     }
 

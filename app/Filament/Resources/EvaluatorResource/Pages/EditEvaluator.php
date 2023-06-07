@@ -5,6 +5,7 @@ namespace App\Filament\Resources\EvaluatorResource\Pages;
 use Filament\Resources\Pages\EditRecord;
 use App\Filament\Resources\EvaluatorResource;
 use App\Models\User;
+use Filament\Pages\Actions\DeleteAction;
 use Illuminate\Database\Eloquent\Model;
 
 class EditEvaluator extends EditRecord
@@ -29,5 +30,19 @@ class EditEvaluator extends EditRecord
         $data['user'] = User::find($data['user_id']);
 
         return $data;
+    }
+
+    protected function getActions(): array
+    {
+        return [
+            DeleteAction::make()->before(
+                function (DeleteAction $action, Model $record,) {
+
+                    // delete user
+                    $record->user()->forceDelete();
+
+                }
+            ),
+        ];
     }
 }

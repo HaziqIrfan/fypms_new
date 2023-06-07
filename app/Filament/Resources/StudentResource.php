@@ -13,7 +13,9 @@ use Filament\Tables\Filters\SelectFilter;
 use App\Filament\Filters\DateRangeFilter;
 use App\Filament\Resources\StudentResource\Pages;
 use App\Models\Supervisor;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class StudentResource extends Resource
@@ -23,6 +25,16 @@ class StudentResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-academic-cap'; //change icon navside-bar
 
     protected static ?string $recordTitleAttribute = 'user.name';
+
+    protected static function shouldRegisterNavigation(): bool
+    {
+        if (Auth::user()->hasRole('Coordinator') || Auth::user()->hasRole('Super Admin') || Auth::user()->hasRole('Supervisor')) {
+
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     public static function form(Form $form): Form
     {
@@ -131,18 +143,17 @@ class StudentResource extends Resource
                         ->Searchable()
                         ->relationship('supervisor', 'name')
                         ->getSearchResultsUsing(function (string $search) {
-                            return Supervisor::whereHas('user', function ($q) use ($search){
-                                $q->where('name','LIKE', "%{$search}%");
-                            })->get()->pluck('name','id');
-
-                        })->getOptionLabelFromRecordUsing(fn(Model $record)=>$record->name)
+                            return Supervisor::whereHas('user', function ($q) use ($search) {
+                                $q->where('name', 'LIKE', "%{$search}%");
+                            })->get()->pluck('name', 'id');
+                        })->getOptionLabelFromRecordUsing(fn (Model $record) => $record->name)
                         ->placeholder('Supervisor')
                         ->columnSpan([
                             'default' => 12,
                             'md' => 12,
                             'lg' => 12,
                         ]),
-                        
+
                 ]),
             ]),
         ]);
@@ -155,27 +166,27 @@ class StudentResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('project_title')
                     ->toggleable()
-                    ->searchable(true, null, true)
+                    ->searchable()
                     ->limit(50),
                 Tables\Columns\TextColumn::make('psm_status')
                     ->toggleable()
-                    ->searchable(true, null, true)
+                    ->searchable()
                     ->limit(50),
                 Tables\Columns\TextColumn::make('year')
                     ->toggleable()
-                    ->searchable(true, null, true)
+                    ->searchable()
                     ->limit(50),
                 Tables\Columns\TextColumn::make('program')
                     ->toggleable()
-                    ->searchable(true, null, true)
+                    ->searchable()
                     ->limit(50),
                 Tables\Columns\TextColumn::make('pa_name')
                     ->toggleable()
-                    ->searchable(true, null, true)
+                    ->searchable()
                     ->limit(50),
                 Tables\Columns\TextColumn::make('user.name')
                     ->toggleable()
-                    ->searchable(true, null, true)
+                    ->searchable()
                     ->limit(50),
             ])
             ->filters([

@@ -15,7 +15,7 @@ class CreateEvaluator extends CreateRecord
     protected function handleRecordCreation(array $data): Model
     {
         $user = User::create($data['user']); //create user 
-
+        $user->assignRole('Evaluator');
         return $user->evaluator()->create(); //create evaluator 
     }
 

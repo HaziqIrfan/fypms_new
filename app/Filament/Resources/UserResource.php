@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Filament\Forms\Components\TextInput;
 use App\Filament\Filters\DateRangeFilter;
 use App\Filament\Resources\UserResource\Pages;
+use Illuminate\Support\Facades\Auth;
 
 class UserResource extends Resource
 {
@@ -21,6 +22,15 @@ class UserResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
+    protected static function shouldRegisterNavigation(): bool
+    {
+        if (Auth::user()->hasRole('Super Admin')) {
+
+            return true;
+        } else {
+            return false;
+        }
+    }
     public static function form(Form $form): Form
     {
         return $form->schema([
@@ -91,9 +101,9 @@ class UserResource extends Resource
     public static function getRelations(): array
     {
         return [
-            UserResource\RelationManagers\StudentsRelationManager::class,
-            UserResource\RelationManagers\SupervisorsRelationManager::class,
-            UserResource\RelationManagers\EvaluatorsRelationManager::class,
+            // UserResource\RelationManagers\StudentsRelationManager::class,
+            // UserResource\RelationManagers\SupervisorsRelationManager::class,
+            // UserResource\RelationManagers\EvaluatorsRelationManager::class,
         ];
     }
 

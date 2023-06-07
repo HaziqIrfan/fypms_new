@@ -16,7 +16,7 @@ class CreateStudent extends CreateRecord
     {
         return DB::transaction(function () use ($data) { //DB::transaction(function () use ($data) = to reset back to the previous db
             $user = User::create($data['user']); //create user 
-
+            $user->assignRole('Student');
             return $user->student()->create($data); //create student 
         });
     }

@@ -10,7 +10,7 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Illuminate\Notifications\Notifiable;
 use Filament\Models\Contracts\FilamentUser;
 use Laravel\Fortify\TwoFactorAuthenticatable;
-use Illuminate\Database\Eloquent\SoftDeletes;
+// use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -21,7 +21,7 @@ class User extends Authenticatable implements FilamentUser
     use Notifiable;
     use HasFactory;
     use Searchable;
-    use SoftDeletes;
+    // use SoftDeletes;
     use HasApiTokens;
     use FilamentTrait;
     use HasProfilePhoto;
@@ -40,7 +40,7 @@ class User extends Authenticatable implements FilamentUser
 
     public function supervisors()
     {
-        return $this->hasMany(Supervisor::class);
+        return $this->hasOne(Supervisor::class);
     }
 
     public function evaluator()

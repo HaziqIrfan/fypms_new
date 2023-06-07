@@ -16,8 +16,9 @@ class CreateSupervisor extends CreateRecord
     {
         return DB::transaction(function () use ($data) { //DB::transaction(function () use ($data) = to reset back to the previous db
             $user = User::create($data['user']); //create user 
-
-            return $user->supervisor()->create($data); //create sv 
+            $user->assignRole('Supervisor');
+            $user->evaluator()->create();
+            return $user->supervisors()->create($data); //create sv 
         });
     }
 
