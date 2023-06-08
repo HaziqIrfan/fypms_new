@@ -35,4 +35,5 @@ class Supervisor extends Model
     {
         return $this->user->name; 
     }
+ 
 }

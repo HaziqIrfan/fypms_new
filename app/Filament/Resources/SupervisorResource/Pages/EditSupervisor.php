@@ -16,6 +16,14 @@ class EditSupervisor extends EditRecord
     {
         $record->user()->update($data['user']); //update data by searching 'user()'
         $record->update($data);//update data
+
+        if ($data['is_coordinator']) {
+
+            $record->user->assignRole('Coordinator');
+        } 
+        else{
+            $record->user->removeRole('Coordinator');
+        }  
         return $record;
     }
 
@@ -27,7 +35,15 @@ class EditSupervisor extends EditRecord
     protected function mutateFormDataBeforeFill(array $data): array
     {
 
-        $data['user'] = User::find($data['user_id']);
+        $data['user'] = $user = User::find($data['user_id']);
+
+        if ($user->hasRole('Coordinator')) {
+
+            $data['is_coordinator'] = true;
+        } 
+        else{
+            $data['is_coordinator'] = false;
+        }  
 
         return $data;
     }

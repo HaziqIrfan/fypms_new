@@ -12,6 +12,8 @@ use Filament\Forms\Components\TextInput;
 use Filament\Tables\Filters\SelectFilter;
 use App\Filament\Filters\DateRangeFilter;
 use App\Filament\Resources\EvaluationResultResource\Pages;
+use App\Models\Evaluator;
+use Illuminate\Database\Eloquent\Model;
 
 class EvaluationResultResource extends Resource
 {
@@ -48,17 +50,23 @@ class EvaluationResultResource extends Resource
                             'lg' => 12,
                         ]),
 
-                    Select::make('evaluator_id')
-                        ->rules(['exists:evaluators,id'])
-                        ->required()
-                        ->relationship('evaluator', 'id')
-                        ->searchable()
-                        ->placeholder('Evaluator')
-                        ->columnSpan([
-                            'default' => 12,
-                            'md' => 12,
-                            'lg' => 12,
-                        ]),
+
+                    // Select::make('evaluator_id')
+                    //     ->rules(['exists:evaluators,id'])
+                    //     ->required()
+                    //     ->Searchable()
+                    //     ->relationship('evaluator', 'name')
+                    //     ->getSearchResultsUsing(function (string $search) {
+                    //         return Evaluator::whereHas('user', function ($q) use ($search) {
+                    //             $q->where('name', 'LIKE', "%{$search}%");
+                    //         })->get()->pluck('name', 'id');
+                    //     })->getOptionLabelFromRecordUsing(fn (Model $record) => $record->name)
+                    //     ->placeholder('Evaluators')
+                    //     ->columnSpan([
+                    //         'default' => 12,
+                    //         'md' => 12,
+                    //         'lg' => 12,
+                    //     ]),
                 ]),
             ]),
         ]);
@@ -71,7 +79,7 @@ class EvaluationResultResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('mark')
                     ->toggleable()
-                    ->searchable(true, null, true)
+                    ->searchable()
                     ->limit(50),
                 Tables\Columns\TextColumn::make('evaluation.title')
                     ->toggleable()

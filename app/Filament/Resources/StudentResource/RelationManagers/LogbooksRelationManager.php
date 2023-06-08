@@ -79,7 +79,7 @@ class LogbooksRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('datetime')->date(),
                 Tables\Columns\TextColumn::make('week')->limit(50),
                 Tables\Columns\TextColumn::make('approval_date')->date(),
-                Tables\Columns\TextColumn::make('description')->date(),
+                Tables\Columns\TextColumn::make('description'),
                 Tables\Columns\TextColumn::make('comment')->limit(50),
             ])
             ->filters([

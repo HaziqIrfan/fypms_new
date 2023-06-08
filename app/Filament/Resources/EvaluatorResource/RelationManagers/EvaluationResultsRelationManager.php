@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\EvaluatorResource\RelationManagers;
 
+use App\Models\Evaluator;
 use Filament\Forms;
 use Filament\Tables;
 use Filament\Resources\{Form, Table};
@@ -12,6 +13,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms\Components\BelongsToSelect;
 use Filament\Tables\Filters\MultiSelectFilter;
 use Filament\Resources\RelationManagers\RelationManager;
+use Illuminate\Database\Eloquent\Model;
 
 class EvaluationResultsRelationManager extends RelationManager
 {
@@ -42,7 +44,6 @@ class EvaluationResultsRelationManager extends RelationManager
                         'md' => 12,
                         'lg' => 12,
                     ]),
-
             ]),
         ]);
     }
@@ -65,7 +66,7 @@ class EvaluationResultsRelationManager extends RelationManager
                         return $query
                             ->when(
                                 $data['created_from'],
-                                fn(
+                                fn (
                                     Builder $query,
                                     $date
                                 ): Builder => $query->whereDate(
@@ -76,7 +77,7 @@ class EvaluationResultsRelationManager extends RelationManager
                             )
                             ->when(
                                 $data['created_until'],
-                                fn(
+                                fn (
                                     Builder $query,
                                     $date
                                 ): Builder => $query->whereDate(

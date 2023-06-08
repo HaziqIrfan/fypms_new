@@ -29,22 +29,7 @@ class LogbookResource extends Resource
         return $form->schema([
             Card::make()->schema([
                 Grid::make(['default' => 0])->schema([
-                    Select::make('student_id')
-                        ->rules(['exists:students,id'])
-                        ->required()
-                        ->Searchable()
-                        ->relationship('student', 'name')
-                        ->getSearchResultsUsing(function (string $search) {
-                            return Student::whereHas('user', function ($q) use ($search) {
-                                $q->where('name', 'LIKE', "%{$search}%");
-                            })->get()->pluck('name', 'id');
-                        })->getOptionLabelFromRecordUsing(fn (Model $record) => $record->name)
-                        ->placeholder('Student')
-                        ->columnSpan([
-                            'default' => 12,
-                            'md' => 12,
-                            'lg' => 12,
-                        ]),
+
 
                     DatePicker::make('datetime')
                         ->rules(['date'])
@@ -85,7 +70,14 @@ class LogbookResource extends Resource
                             'default' => 12,
                             'md' => 12,
                             'lg' => 12,
-                        ]),
+                        ])->hidden(function (string $context) {
+                            if ($context == "create" || $context == "edit") {
+                                if (auth()->user()->hasRole('Student')) {
+                                    return true;
+                                }
+                            }
+                            return false;
+                        }),
 
                     TextInput::make('comment')
                         ->rules(['max:255', 'string'])
@@ -95,7 +87,14 @@ class LogbookResource extends Resource
                             'default' => 12,
                             'md' => 12,
                             'lg' => 12,
-                        ]),
+                        ])->hidden(function (string $context) {
+                            if ($context == "create" || $context == "edit") {
+                                if (auth()->user()->hasRole('Student')) {
+                                    return true;
+                                }
+                            }
+                            return false;
+                        }),
 
 
                 ]),

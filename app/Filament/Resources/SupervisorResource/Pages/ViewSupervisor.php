@@ -17,7 +17,15 @@ class ViewSupervisor extends ViewRecord
 
     protected function mutateFormDataBeforeFill(array $data): array
     {
-        $data['user'] = User::find($data['user_id']);
+        $data['user'] = $user = User::find($data['user_id']);
+
+        if ($user->hasRole('Coordinator')) {
+
+            $data['is_coordinator'] = true;
+        } 
+        else{
+            $data['is_coordinator'] = false;
+        }  
 
         return $data;
     }

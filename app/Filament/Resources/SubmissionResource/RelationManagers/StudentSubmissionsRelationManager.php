@@ -10,27 +10,32 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\RichEditor;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms\Components\BelongsToSelect;
+use Filament\Forms\Components\FileUpload;
 use Filament\Tables\Filters\MultiSelectFilter;
 use Filament\Resources\RelationManagers\RelationManager;
+use Illuminate\Database\Eloquent\Model;
 
 class StudentSubmissionsRelationManager extends RelationManager
 {
     protected static string $relationship = 'studentSubmissions';
 
-    protected static ?string $recordTitleAttribute = 'file_path';
+    protected static ?string $recordTitleAttribute = '';
 
     public static function form(Form $form): Form
     {
         return $form->schema([
             Grid::make(['default' => 0])->schema([
-                RichEditor::make('file_path')
-                    ->rules(['max:255', 'string'])
-                    ->placeholder('File Path')
-                    ->columnSpan([
-                        'default' => 12,
-                        'md' => 12,
-                        'lg' => 12,
-                    ]),
+   
+            FileUpload::make('file_path') //Refer documentation filament: #File upload
+                ->disk('studentsubmissions')
+                ->enableReordering()
+                ->enableOpen()
+                ->enableDownload()
+                ->columnSpan([
+                    'default' => 12,
+                    'md' => 12,
+                    'lg' => 12,
+                ]),
 
             ]),
         ]);
@@ -40,8 +45,9 @@ class StudentSubmissionsRelationManager extends RelationManager
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('file_path')->limit(50),
-                Tables\Columns\TextColumn::make('submission.title')->limit(50),
+                Tables\Columns\TextColumn::make('student.user.name')->label("Student Name")->limit(50)->searchable(),
+                Tables\Columns\TextColumn::make('updated_at')->dateTime()->label("Submission Date"),
+
             ])
             ->filters([
                 Tables\Filters\Filter::make('created_at')
@@ -81,7 +87,11 @@ class StudentSubmissionsRelationManager extends RelationManager
                 ),
 
             ])
-            ->headerActions([Tables\Actions\CreateAction::make()])
+            ->headerActions([Tables\Actions\CreateAction::make()->mutateFormDataUsing(function (array $data, RelationManager $livewire): array {
+                $data['student_id'] = auth()->user()->student->id;
+                $data['submission_id'] = $livewire->ownerRecord->id;
+                return $data;
+            })])
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),

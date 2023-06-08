@@ -12,5 +12,10 @@ class CreateLogbook extends CreateRecord
 {
     protected static string $resource = LogbookResource::class;
 
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        $data['student_id'] = auth()->user()->student->id;//sepcific logbook student
+        return $data;
+    }
 
-}
+    }

@@ -23,15 +23,15 @@ class StudentSubmissionResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'file_path';
 
-    // protected static function shouldRegisterNavigation(): bool
-    // {
-    //     if (Auth::user()->hasRole('Student')) {
+    protected static function shouldRegisterNavigation(): bool
+    {
+        if (Auth::user()->hasRole('Student')||Auth::user()->hasRole('Supervisor')) {
 
-    //         return false;
-    //     } else {
-    //         return true;
-    //     }
-    // }
+            return false;
+        } else {
+            return true;
+        }
+    }
 
     public static function form(Form $form): Form
     {

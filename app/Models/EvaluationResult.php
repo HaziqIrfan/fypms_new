@@ -15,6 +15,7 @@ class EvaluationResult extends Model
 
     protected $fillable = [
         'mark',
+        'comment',
         'evaluation_id',
         'student_id',
         'evaluator_id',

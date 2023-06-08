@@ -13,6 +13,8 @@ use Filament\Tables\Filters\SelectFilter;
 use App\Filament\Filters\DateRangeFilter;
 use App\Filament\Resources\SupervisorResource\Pages;
 use App\Models\Student;
+use Filament\Forms\Components\Toggle;
+use Filament\Tables\Columns\ToggleColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -119,6 +121,8 @@ class SupervisorResource extends Resource
                             'md' => 12,
                             'lg' => 12,
                         ]),
+                    Toggle::make('is_coordinator')
+
 
                     // Select::make('user_id')
                     //     ->rules(['exists:users,id'])

@@ -12,6 +12,7 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\RichEditor;
 use App\Filament\Filters\DateRangeFilter;
 use App\Filament\Resources\EvaluationResource\Pages;
+use Filament\Forms\Components\FileUpload;
 use Illuminate\Support\Facades\Auth;
 
 class EvaluationResource extends Resource
@@ -46,15 +47,15 @@ class EvaluationResource extends Resource
                             'lg' => 12,
                         ]),
 
-                    RichEditor::make('rubric_file_path')
-                        ->rules(['max:255', 'string'])
-                        ->required()
-                        ->placeholder('Rubric File Path')
-                        ->columnSpan([
-                            'default' => 12,
-                            'md' => 12,
-                            'lg' => 12,
-                        ]),
+                    // RichEditor::make('rubric_file_path')
+                    //     ->rules(['max:255', 'string'])
+                    //     ->required()
+                    //     ->placeholder('Rubric File Path')
+                    //     ->columnSpan([
+                    //         'default' => 12,
+                    //         'md' => 12,
+                    //         'lg' => 12,
+                    //     ]),
 
                     DatePicker::make('start_date')
                         ->rules(['date'])
@@ -75,6 +76,17 @@ class EvaluationResource extends Resource
                             'md' => 12,
                             'lg' => 12,
                         ]),
+                    FileUpload::make('rubric_file_path') //Refer documentation filament: #File upload
+                        ->disk('posts')
+                        // ->multiple()
+                        ->enableReordering()
+                        ->enableOpen()
+                        ->enableDownload()
+                        ->columnSpan([
+                            'default' => 12,
+                            'md' => 12,
+                            'lg' => 12,
+                        ]),
                 ]),
             ]),
         ]);
@@ -87,12 +99,12 @@ class EvaluationResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('title')
                     ->toggleable()
-                    ->searchable(true, null, true)
-                    ->limit(50),
-                Tables\Columns\TextColumn::make('rubric_file_path')
-                    ->toggleable()
                     ->searchable()
                     ->limit(50),
+                // Tables\Columns\TextColumn::make('rubric_file_path')
+                //     ->toggleable()
+                //     ->searchable()
+                //     ->limit(50),
                 Tables\Columns\TextColumn::make('start_date')
                     ->toggleable()
                     ->date(),
