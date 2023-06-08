@@ -13,6 +13,7 @@ class StudentListOverview extends BaseWidget
     protected function getCards(): array
     {
         if (Auth::user()->hasRole('Supervisor')) {
+            
             return [
                 Card::make('Total Students', Student::where('supervisor_id', auth()->user()->Supervisors->id)->count())
 

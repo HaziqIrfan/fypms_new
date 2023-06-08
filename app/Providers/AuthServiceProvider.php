@@ -21,18 +21,6 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Automatically finding the Policies
-        Gate::guessPolicyNamesUsing(function ($modelClass) {
-            return 'App\\Policies\\' . class_basename($modelClass) . 'Policy';
-        });
-
-        $this->registerPolicies();
-
-        // Implicitly grant "Super Admin" role all permission checks using can()
-        Gate::before(function ($user, $ability) {
-            if ($user->isSuperAdmin()) {
-                return true;
-            }
-        });
+       
     }
 }

@@ -13,7 +13,7 @@ class Submission extends Model
     use Searchable;
     use SoftDeletes;
 
-    protected $fillable = ['title', 'description', 'due_date', 'start_date'];
+    protected $fillable = ['title', 'description', 'due_date', 'start_date', 'file_path'];
 
     protected $searchableFields = ['*'];
 

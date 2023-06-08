@@ -11,6 +11,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\DatePicker;
 use App\Filament\Filters\DateRangeFilter;
 use App\Filament\Resources\SubmissionResource\Pages;
+use Filament\Forms\Components\FileUpload;
 
 class SubmissionResource extends Resource
 {
@@ -45,16 +46,6 @@ class SubmissionResource extends Resource
                             'lg' => 12,
                         ]),
 
-                    DatePicker::make('due_date')
-                        ->rules(['date'])
-                        ->required()
-                        ->placeholder('Due Date')
-                        ->columnSpan([
-                            'default' => 12,
-                            'md' => 12,
-                            'lg' => 12,
-                        ]),
-
                     DatePicker::make('start_date')
                         ->rules(['date'])
                         ->required()
@@ -64,7 +55,29 @@ class SubmissionResource extends Resource
                             'md' => 12,
                             'lg' => 12,
                         ]),
+
+                    DatePicker::make('due_date')
+                        ->rules(['date'])
+                        ->required()
+                        ->placeholder('Due Date')
+                        ->columnSpan([
+                            'default' => 12,
+                            'md' => 12,
+                            'lg' => 12,
+                        ]),
+                    FileUpload::make('file_path') //Refer documentation filament: #File upload
+                        ->disk('studentsubmissions')
+                        ->enableReordering()
+                        ->enableOpen()
+                        ->enableDownload()
+                        ->columnSpan([
+                            'default' => 12,
+                            'md' => 12,
+                            'lg' => 12,
+                        ]),
                 ]),
+
+
             ]),
         ]);
     }
@@ -76,18 +89,22 @@ class SubmissionResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('title')
                     ->toggleable()
-                    ->searchable(true, null, true)
+                    ->searchable()
                     ->limit(50),
-                Tables\Columns\TextColumn::make('description')
-                    ->toggleable()
-                    ->searchable(true, null, true)
-                    ->limit(50),
-                Tables\Columns\TextColumn::make('due_date')
-                    ->toggleable()
-                    ->date(),
+                // Tables\Columns\TextColumn::make('description')
+                //     ->toggleable()
+                //     ->searchable()
+                //     ->limit(50),
                 Tables\Columns\TextColumn::make('start_date')
                     ->toggleable()
                     ->date(),
+                Tables\Columns\TextColumn::make('due_date')
+                    ->toggleable()
+                    ->date(),
+                // Tables\Columns\TextColumn::make('file_path')
+                //     ->toggleable()
+                //     ->searchable()
+                //     ->limit(50),
             ])
             ->filters([DateRangeFilter::make('created_at')]);
     }

@@ -40,15 +40,15 @@ class SupervisorResource extends Resource
         return "Lecturer";
     }
 
-    protected static function shouldRegisterNavigation(): bool
-    {
-        if (Auth::user()->hasRole('Coordinator') || Auth::user()->hasRole('Super Admin')) {
+    // protected static function shouldRegisterNavigation(): bool
+    // {
+    //     if (Auth::user()->hasRole('Coordinator') || Auth::user()->hasRole('Super Admin')|| Auth::user()->hasRole('Student')) {
 
-            return true;
-        } else {
-            return false;
-        }
-    }
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
 
     public static function form(Form $form): Form
     {
@@ -144,11 +144,11 @@ class SupervisorResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('background')
                     ->toggleable()
-                    ->searchable(true, null, true)
+                    ->searchable()
                     ->limit(50),
                 Tables\Columns\TextColumn::make('availability')
                     ->toggleable()
-                    ->searchable(true, null, true)
+                    ->searchable()
                     ->limit(50),
                 Tables\Columns\TextColumn::make('user.name')
                     ->toggleable()

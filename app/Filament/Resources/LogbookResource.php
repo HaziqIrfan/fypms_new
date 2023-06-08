@@ -13,20 +13,39 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Tables\Filters\SelectFilter;
 use App\Filament\Filters\DateRangeFilter;
 use App\Filament\Resources\LogbookResource\Pages;
+use App\Models\Student;
+use Illuminate\Database\Eloquent\Model;
 
 class LogbookResource extends Resource
 {
     protected static ?string $model = Logbook::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-book-open';//change icon navside-bar 
+    protected static ?string $navigationIcon = 'heroicon-o-book-open'; //change icon navside-bar 
 
-    protected static ?string $recordTitleAttribute = 'datetime';
+    protected static ?string $recordTitleAttribute = '';
 
     public static function form(Form $form): Form
     {
         return $form->schema([
             Card::make()->schema([
                 Grid::make(['default' => 0])->schema([
+                    Select::make('student_id')
+                        ->rules(['exists:students,id'])
+                        ->required()
+                        ->Searchable()
+                        ->relationship('student', 'name')
+                        ->getSearchResultsUsing(function (string $search) {
+                            return Student::whereHas('user', function ($q) use ($search) {
+                                $q->where('name', 'LIKE', "%{$search}%");
+                            })->get()->pluck('name', 'id');
+                        })->getOptionLabelFromRecordUsing(fn (Model $record) => $record->name)
+                        ->placeholder('Student')
+                        ->columnSpan([
+                            'default' => 12,
+                            'md' => 12,
+                            'lg' => 12,
+                        ]),
+
                     DatePicker::make('datetime')
                         ->rules(['date'])
                         ->required()
@@ -47,18 +66,9 @@ class LogbookResource extends Resource
                             'lg' => 12,
                         ]),
 
-                    DatePicker::make('approval_date')
-                        ->rules(['date'])
-                        ->required()
-                        ->placeholder('Approval Date')
-                        ->columnSpan([
-                            'default' => 12,
-                            'md' => 12,
-                            'lg' => 12,
-                        ]),
 
-                    DatePicker::make('description')
-                        ->rules(['date'])
+                    TextInput::make('description')
+                        ->rules(['max:255', 'string'])
                         ->required()
                         ->placeholder('Description')
                         ->columnSpan([
@@ -67,15 +77,26 @@ class LogbookResource extends Resource
                             'lg' => 12,
                         ]),
 
-                    TextInput::make('comment')
-                        ->rules(['max:255', 'string'])
-                        ->required()
-                        ->placeholder('Comment')
+                    DatePicker::make('approval_date')
+                        ->rules(['date'])
+                        // ->required()
+                        ->placeholder('Approval Date by Supervisor')
                         ->columnSpan([
                             'default' => 12,
                             'md' => 12,
                             'lg' => 12,
                         ]),
+
+                    TextInput::make('comment')
+                        ->rules(['max:255', 'string'])
+                        // ->required()
+                        ->placeholder('Comment by Supervisor')
+                        ->columnSpan([
+                            'default' => 12,
+                            'md' => 12,
+                            'lg' => 12,
+                        ]),
+
 
                 ]),
             ]),
@@ -92,17 +113,18 @@ class LogbookResource extends Resource
                     ->date(),
                 Tables\Columns\TextColumn::make('week')
                     ->toggleable()
-                    ->searchable(true, null, true)
+                    ->searchable()
+                    ->limit(50),
+                Tables\Columns\TextColumn::make('description')
+                    ->toggleable()
+                    ->searchable()
                     ->limit(50),
                 Tables\Columns\TextColumn::make('approval_date')
                     ->toggleable()
                     ->date(),
-                Tables\Columns\TextColumn::make('description')
-                    ->toggleable()
-                    ->date(),
                 Tables\Columns\TextColumn::make('comment')
                     ->toggleable()
-                    ->searchable(true, null, true)
+                    ->searchable()
                     ->limit(50),
             ])
             ->filters([

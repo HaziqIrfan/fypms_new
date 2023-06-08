@@ -2,7 +2,7 @@
 
 return [
     'shield_resource' => [
-        'should_register_navigation' => false,
+        'should_register_navigation' => true,
         'slug' => 'shield/roles',
         'navigation_sort' => -1,
         'navigation_badge' => true,
@@ -23,7 +23,7 @@ return [
     ],
 
     'filament_user' => [
-        'enabled' => false,
+        'enabled' => true,
         'name' => 'filament_user',
     ],
 
@@ -33,14 +33,14 @@ return [
             'view_any',
             'create',
             'update',
-            // 'restore',
-            // 'restore_any',
-            // 'replicate',
-            // 'reorder',
+            'restore',
+            'restore_any',
+            'replicate',
+            'reorder',
             'delete',
             'delete_any',
-            // 'force_delete',
-            // 'force_delete_any',
+            'force_delete',
+            'force_delete_any',
         ],
 
         'page' => 'page',
@@ -48,8 +48,8 @@ return [
     ],
 
     'entities' => [
-        'pages' => false,
-        'widgets' => false,
+        'pages' => true,
+        'widgets' => true,
         'resources' => true,
         'custom_permissions' => false,
     ],

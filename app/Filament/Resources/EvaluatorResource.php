@@ -24,10 +24,10 @@ class EvaluatorResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'user.name';
 
-    protected static function shouldRegisterNavigation(): bool
-    {
-        return false;
-    }
+    // protected static function shouldRegisterNavigation(): bool
+    // {
+    //     return false;
+    // }
     public static function form(Form $form): Form
     {
         return $form->schema([

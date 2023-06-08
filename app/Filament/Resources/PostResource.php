@@ -55,15 +55,20 @@ class PostResource extends Resource
                     //         'md' => 12,
                     //         'lg' => 12,
                     //     ]),
-                        
+
+                    FileUpload::make('file_path') //Refer documentation filament: #File upload
+                        ->disk('posts')
+                        // ->multiple()
+                        ->enableReordering()
+                        ->enableOpen()
+                        ->enableDownload()
+                        ->columnSpan([
+                            'default' => 12,
+                            'md' => 12,
+                            'lg' => 12,
+                        ]),
                 ]),
 
-                FileUpload::make('file_path') //Refer documentation filament: #File upload
-                ->disk('posts')
-                // ->multiple()
-                ->enableReordering()
-                ->enableOpen()
-                ->enableDownload()
             ]),
         ]);
     }
@@ -75,16 +80,16 @@ class PostResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('title')
                     ->toggleable()
-                    ->searchable(true, null, true)
+                    ->searchable()
                     ->limit(50),
                 Tables\Columns\TextColumn::make('description')
                     ->toggleable()
-                    ->searchable(true, null, true)
-                    ->limit(50),
-                Tables\Columns\TextColumn::make('file_path')
-                    ->toggleable()
                     ->searchable()
                     ->limit(50),
+                // Tables\Columns\TextColumn::make('file_path')
+                //     ->toggleable()
+                //     ->searchable()
+                //     ->limit(50),
             ])
             ->filters([DateRangeFilter::make('created_at')]);
     }

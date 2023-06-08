@@ -22,15 +22,15 @@ class UserResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    protected static function shouldRegisterNavigation(): bool
-    {
-        if (Auth::user()->hasRole('Super Admin')) {
+    // protected static function shouldRegisterNavigation(): bool
+    // {
+    //     if (Auth::user()->hasRole('Super Admin')) {
 
-            return true;
-        } else {
-            return false;
-        }
-    }
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
     public static function form(Form $form): Form
     {
         return $form->schema([

@@ -12,6 +12,7 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\RichEditor;
 use App\Filament\Filters\DateRangeFilter;
 use App\Filament\Resources\EvaluationResource\Pages;
+use Illuminate\Support\Facades\Auth;
 
 class EvaluationResource extends Resource
 {
@@ -21,6 +22,15 @@ class EvaluationResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'title';
 
+    // protected static function shouldRegisterNavigation(): bool
+    // {
+    //     if (Auth::user()->hasRole('Coordinator') || Auth::user()->hasRole('Super Admin')|| Auth::user()->hasRole('Evaluators')) {
+
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
     public static function form(Form $form): Form
     {
         return $form->schema([

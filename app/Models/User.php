@@ -23,7 +23,6 @@ class User extends Authenticatable implements FilamentUser
     use Searchable;
     // use SoftDeletes;
     use HasApiTokens;
-    use FilamentTrait;
     use HasProfilePhoto;
     use TwoFactorAuthenticatable;
 
@@ -48,7 +47,7 @@ class User extends Authenticatable implements FilamentUser
         return $this->hasOne(Evaluator::class);
     }
 
-    public function isSuperAdmin(): bool
+    public function canAccessFilament(): bool
     {
         return true;
     }

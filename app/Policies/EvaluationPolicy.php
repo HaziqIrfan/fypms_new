@@ -18,7 +18,7 @@ class EvaluationPolicy
      */
     public function viewAny(User $user)
     {
-        return false;
+        return $user->can('view_any_evaluation');
     }
 
     /**
@@ -30,7 +30,7 @@ class EvaluationPolicy
      */
     public function view(User $user, Evaluation $evaluation)
     {
-        return false;
+        return $user->can('view_evaluation');
     }
 
     /**
@@ -41,7 +41,7 @@ class EvaluationPolicy
      */
     public function create(User $user)
     {
-        return false;
+        return $user->can('create_evaluation');
     }
 
     /**
@@ -53,7 +53,7 @@ class EvaluationPolicy
      */
     public function update(User $user, Evaluation $evaluation)
     {
-        return false;
+        return $user->can('update_evaluation');
     }
 
     /**
@@ -65,7 +65,7 @@ class EvaluationPolicy
      */
     public function delete(User $user, Evaluation $evaluation)
     {
-        return false;
+        return $user->can('delete_evaluation');
     }
 
     /**
@@ -76,7 +76,7 @@ class EvaluationPolicy
      */
     public function deleteAny(User $user)
     {
-        return false; 
+        return $user->can('delete_any_evaluation');
     }
 
     /**
@@ -88,8 +88,9 @@ class EvaluationPolicy
      */
     public function forceDelete(User $user, Evaluation $evaluation)
     {
-        return false;
+        return $user->can('force_delete_evaluation');
     }
+
     /**
      * Determine whether the user can permanently bulk delete.
      *
@@ -98,7 +99,7 @@ class EvaluationPolicy
      */
     public function forceDeleteAny(User $user)
     {
-        return false;
+        return $user->can('force_delete_any_evaluation');
     }
 
     /**
@@ -110,7 +111,7 @@ class EvaluationPolicy
      */
     public function restore(User $user, Evaluation $evaluation)
     {
-        return false;
+        return $user->can('restore_evaluation');
     }
 
     /**
@@ -121,7 +122,7 @@ class EvaluationPolicy
      */
     public function restoreAny(User $user)
     {
-        return false;
+        return $user->can('restore_any_evaluation');
     }
 
     /**
@@ -133,7 +134,7 @@ class EvaluationPolicy
      */
     public function replicate(User $user, Evaluation $evaluation)
     {
-        return false;
+        return $user->can('replicate_evaluation');
     }
 
     /**
@@ -144,7 +145,7 @@ class EvaluationPolicy
      */
     public function reorder(User $user)
     {
-        return false;
+        return $user->can('reorder_evaluation');
     }
 
 }

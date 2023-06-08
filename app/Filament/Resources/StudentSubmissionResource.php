@@ -12,6 +12,8 @@ use Filament\Forms\Components\RichEditor;
 use Filament\Tables\Filters\SelectFilter;
 use App\Filament\Filters\DateRangeFilter;
 use App\Filament\Resources\StudentSubmissionResource\Pages;
+use Filament\Forms\Components\FileUpload;
+use Illuminate\Support\Facades\Auth;
 
 class StudentSubmissionResource extends Resource
 {
@@ -21,27 +23,37 @@ class StudentSubmissionResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'file_path';
 
+    // protected static function shouldRegisterNavigation(): bool
+    // {
+    //     if (Auth::user()->hasRole('Student')) {
+
+    //         return false;
+    //     } else {
+    //         return true;
+    //     }
+    // }
+
     public static function form(Form $form): Form
     {
         return $form->schema([
             Card::make()->schema([
                 Grid::make(['default' => 0])->schema([
-                    RichEditor::make('file_path')
-                        ->rules(['max:255', 'string'])
-                        ->required()
-                        ->placeholder('File Path')
-                        ->columnSpan([
-                            'default' => 12,
-                            'md' => 12,
-                            'lg' => 12,
-                        ]),
-
                     Select::make('submission_id')
                         ->rules(['exists:submissions,id'])
                         ->required()
                         ->relationship('submission', 'title')
                         ->searchable()
                         ->placeholder('Submission')
+                        ->columnSpan([
+                            'default' => 12,
+                            'md' => 12,
+                            'lg' => 12,
+                        ]),
+                    FileUpload::make('file_path') //Refer documentation filament: #File upload
+                        ->disk('studentsubmissions')
+                        ->enableReordering()
+                        ->enableOpen()
+                        ->enableDownload()
                         ->columnSpan([
                             'default' => 12,
                             'md' => 12,

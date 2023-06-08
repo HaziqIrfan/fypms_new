@@ -26,15 +26,15 @@ class StudentResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'user.name';
 
-    protected static function shouldRegisterNavigation(): bool
-    {
-        if (Auth::user()->hasRole('Coordinator') || Auth::user()->hasRole('Super Admin') || Auth::user()->hasRole('Supervisor')) {
+    // protected static function shouldRegisterNavigation(): bool
+    // {
+    //     if (Auth::user()->hasRole('Coordinator') || Auth::user()->hasRole('Super Admin') || Auth::user()->hasRole('Supervisor')) {
 
-            return true;
-        } else {
-            return false;
-        }
-    }
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
 
     public static function form(Form $form): Form
     {

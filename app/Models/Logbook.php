@@ -27,7 +27,6 @@ class Logbook extends Model
     protected $casts = [
         'datetime' => 'datetime',
         'approval_date' => 'datetime',
-        'description' => 'datetime',
     ];
 
     public function student()
