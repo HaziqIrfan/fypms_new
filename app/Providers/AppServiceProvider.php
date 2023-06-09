@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
             Filament::registerViteTheme('resources/css/filament.css');
             Filament::registerUserMenuItems([
                 UserMenuItem::make()
-                    ->label(auth()->check() ? auth()->user()->roles->first()->name : "")
+                    ->label(auth()->check() ? auth()->user()->roles_name : "")
                     // ->url(route('filament.pages.settings'))
                     ->icon(''),
             ]);

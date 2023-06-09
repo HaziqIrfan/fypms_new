@@ -18,8 +18,6 @@ class LogbooksRelationManager extends RelationManager
 {
     protected static string $relationship = 'logbooks';
 
-    protected static ?string $recordTitleAttribute = 'datetime';
-
     public static function form(Form $form): Form
     {
         return $form->schema([

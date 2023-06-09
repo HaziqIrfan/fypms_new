@@ -17,7 +17,7 @@ class StudentSubmissionsRelationManager extends RelationManager
 {
     protected static string $relationship = 'studentSubmissions';
 
-    protected static ?string $recordTitleAttribute = 'file_path';
+
 
     public static function form(Form $form): Form
     {

@@ -21,7 +21,7 @@ class StudentSubmissionResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-cloud-download'; //change icon navside-bar
 
-    protected static ?string $recordTitleAttribute = 'file_path';
+   
 
     protected static function shouldRegisterNavigation(): bool
     {

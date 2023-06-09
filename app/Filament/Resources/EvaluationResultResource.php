@@ -14,6 +14,7 @@ use App\Filament\Filters\DateRangeFilter;
 use App\Filament\Resources\EvaluationResultResource\Pages;
 use App\Models\Evaluator;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class EvaluationResultResource extends Resource
 {
@@ -21,8 +22,17 @@ class EvaluationResultResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-clipboard-check'; //change icon navside-bar
 
-    protected static ?string $recordTitleAttribute = 'mark';
+  
 
+    protected static function shouldRegisterNavigation(): bool
+    {
+        if (Auth::user()->hasRole('Student')||Auth::user()->hasRole('Supervisor')) {
+
+            return false;
+        } else {
+            return true;
+        }
+    }
     public static function form(Form $form): Form
     {
         return $form->schema([

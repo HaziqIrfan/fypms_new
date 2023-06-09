@@ -19,8 +19,6 @@ class EvaluationResultsRelationManager extends RelationManager
 {
     protected static string $relationship = 'evaluationResults';
 
-    protected static ?string $recordTitleAttribute = 'mark';
-
     public static function form(Form $form): Form
     {
         return $form->schema([

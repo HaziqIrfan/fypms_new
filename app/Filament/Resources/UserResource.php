@@ -20,7 +20,6 @@ class UserResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-user-group'; //change icon navside-bar
 
-    protected static ?string $recordTitleAttribute = 'name';
 
     // protected static function shouldRegisterNavigation(): bool
     // {

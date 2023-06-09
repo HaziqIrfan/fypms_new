@@ -19,7 +19,6 @@ class SubmissionResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text'; //change icon navside-bar
 
-    protected static ?string $recordTitleAttribute = 'title';
 
     public static function form(Form $form): Form
     {

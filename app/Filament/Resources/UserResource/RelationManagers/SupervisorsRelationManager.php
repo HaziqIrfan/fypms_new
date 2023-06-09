@@ -17,9 +17,7 @@ class SupervisorsRelationManager extends RelationManager
 {
     protected static string $relationship = 'supervisors';
 
-    protected static ?string $recordTitleAttribute = 'background';
-
-    public static function form(Form $form): Form
+     public static function form(Form $form): Form
     {
         return $form->schema([
             Grid::make(['default' => 0])->schema([

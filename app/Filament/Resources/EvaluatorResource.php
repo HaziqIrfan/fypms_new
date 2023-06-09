@@ -22,7 +22,6 @@ class EvaluatorResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-users'; //change icon navside-bar
 
-    protected static ?string $recordTitleAttribute = 'user.name';
 
     // protected static function shouldRegisterNavigation(): bool
     // {
@@ -66,6 +65,7 @@ class EvaluatorResource extends Resource
                     TextInput::make('user.password')
                         ->required()
                         ->password()
+                        ->hiddenOn(['edit', 'view'])
                         ->dehydrateStateUsing(fn ($state) => \Hash::make($state)) //hash-auto encrypt password
                         ->required(
                             fn (Component $livewire) => $livewire instanceof

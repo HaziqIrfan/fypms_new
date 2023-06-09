@@ -4,6 +4,7 @@ namespace App\Filament\Resources\EvaluationResource\RelationManagers;
 
 use App\Models\Evaluator;
 use App\Models\Student;
+use App\Models\Supervisor;
 use BaconQrCode\Common\Mode;
 use Filament\Forms;
 use Filament\Tables;
@@ -21,32 +22,28 @@ class EvaluationResultsRelationManager extends RelationManager
 {
     protected static string $relationship = 'evaluationResults';
 
-    protected static ?string $recordTitleAttribute = 'mark';
 
     public static function form(Form $form): Form
     {
         return $form->schema([
             Grid::make(['default' => 0])->schema([
                 Select::make('student_id')
-                    ->rules(['exists:students,id'])
-                    ->required()
-                    ->Searchable()
-                    ->relationship('student', 'name')
-                    ->getSearchResultsUsing(function (string $search) {
-                        return Student::whereHas('user', function ($q) use ($search) {
-                            $q->where('name', 'LIKE', "%{$search}%");
-                        })->get()->pluck('name', 'id');
-                    })
-                    ->getOptionLabelFromRecordUsing(function (Model $record) {
-                        return $record->student->name;
-                    })
+                ->rules(['exists:students,id'])
+                ->required()
+                ->Searchable()
+                ->relationship('student', 'name')
+                ->getSearchResultsUsing(function (string $search) {
+                    return Student::whereHas('user', function ($q) use ($search) {
+                        $q->where('name', 'LIKE', "%{$search}%");
+                    })->get()->pluck('name', 'id');
+                })->getOptionLabelFromRecordUsing(fn (Model $record) => $record->name)
+                ->placeholder('Student')
+                ->columnSpan([
+                    'default' => 12,
+                    'md' => 12,
+                    'lg' => 12,
+                ]),
 
-                    ->placeholder('Student Name')
-                    ->columnSpan([
-                        'default' => 12,
-                        'md' => 12,
-                        'lg' => 12,
-                    ]),
                 TextInput::make('mark')
                     ->rules(['max:255', 'string'])
                     ->placeholder('Mark')

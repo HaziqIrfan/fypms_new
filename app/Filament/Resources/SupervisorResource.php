@@ -28,9 +28,6 @@ class SupervisorResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-users'; //change icon navside-bar
 
-    protected static ?string $recordTitleAttribute = 'user.name';
-
-
     public static function getPluralModelLabel(): string
     {
 
@@ -94,7 +91,7 @@ class SupervisorResource extends Resource
                             fn (Component $livewire) => $livewire instanceof
                                 Pages\CreateSupervisor
                         )
-                        ->hiddenOn('edit')
+                        ->hiddenOn(['edit', 'view'])
                         ->placeholder('Password')
                         ->columnSpan([
                             'default' => 12,

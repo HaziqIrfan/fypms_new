@@ -21,8 +21,6 @@ class EvaluationResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-clipboard-list'; //change icon navside-bar
 
-    protected static ?string $recordTitleAttribute = 'title';
-
     // protected static function shouldRegisterNavigation(): bool
     // {
     //     if (Auth::user()->hasRole('Coordinator') || Auth::user()->hasRole('Super Admin')|| Auth::user()->hasRole('Evaluators')) {

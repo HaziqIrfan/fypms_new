@@ -19,7 +19,7 @@ class PostResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-desktop-computer'; //change icon navside-bar
 
-    protected static ?string $recordTitleAttribute = 'title';
+   
 
     public static function form(Form $form): Form
     {

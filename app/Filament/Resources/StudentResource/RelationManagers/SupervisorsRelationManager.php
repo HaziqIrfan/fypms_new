@@ -17,8 +17,6 @@ class SupervisorsRelationManager extends RelationManager
 {
     protected static string $relationship = 'supervisor';
 
-    protected static ?string $recordTitleAttribute = 'background';
-
     public static function form(Form $form): Form
     {
         return $form->schema([

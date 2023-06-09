@@ -22,19 +22,16 @@ class LogbookResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-book-open'; //change icon navside-bar 
 
-    protected static ?string $recordTitleAttribute = '';
-
+ 
     public static function form(Form $form): Form
     {
         return $form->schema([
             Card::make()->schema([
                 Grid::make(['default' => 0])->schema([
-
-
                     DatePicker::make('datetime')
                         ->rules(['date'])
                         ->required()
-                        ->placeholder('Datetime')
+                        ->placeholder('Today Date')
                         ->columnSpan([
                             'default' => 12,
                             'md' => 12,
@@ -70,14 +67,15 @@ class LogbookResource extends Resource
                             'default' => 12,
                             'md' => 12,
                             'lg' => 12,
-                        ])->hidden(function (string $context) {
-                            if ($context == "create" || $context == "edit") {
-                                if (auth()->user()->hasRole('Student')) {
-                                    return true;
-                                }
+                        ])
+                    ->hidden(function (string $context) {
+                        if ($context == "create" || $context == "edit") {
+                            if (auth()->user()->hasRole('Student')) {
+                                return true;
                             }
-                            return false;
-                        }),
+                        }
+                        return false;
+                    }),
 
                     TextInput::make('comment')
                         ->rules(['max:255', 'string'])
@@ -87,14 +85,15 @@ class LogbookResource extends Resource
                             'default' => 12,
                             'md' => 12,
                             'lg' => 12,
-                        ])->hidden(function (string $context) {
-                            if ($context == "create" || $context == "edit") {
-                                if (auth()->user()->hasRole('Student')) {
-                                    return true;
-                                }
+                        ])
+                    ->hidden(function (string $context) {
+                        if ($context == "create" || $context == "edit") {
+                            if (auth()->user()->hasRole('Student')) {
+                                return true;
                             }
-                            return false;
-                        }),
+                        }
+                        return false;
+                    }),
 
 
                 ]),
@@ -114,10 +113,10 @@ class LogbookResource extends Resource
                     ->toggleable()
                     ->searchable()
                     ->limit(50),
-                Tables\Columns\TextColumn::make('description')
-                    ->toggleable()
-                    ->searchable()
-                    ->limit(50),
+                // Tables\Columns\TextColumn::make('description')
+                //     ->toggleable()
+                //     ->searchable()
+                //     ->limit(50),
                 Tables\Columns\TextColumn::make('approval_date')
                     ->toggleable()
                     ->date(),

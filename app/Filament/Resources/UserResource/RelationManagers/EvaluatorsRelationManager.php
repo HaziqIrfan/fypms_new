@@ -16,7 +16,6 @@ class EvaluatorsRelationManager extends RelationManager
 {
     protected static string $relationship = 'evaluators';
 
-    protected static ?string $recordTitleAttribute = 'id';
 
     public static function form(Form $form): Form
     {

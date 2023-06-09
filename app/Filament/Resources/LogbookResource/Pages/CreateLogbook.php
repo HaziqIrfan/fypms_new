@@ -18,4 +18,4 @@ class CreateLogbook extends CreateRecord
         return $data;
     }
 
-    }
+}

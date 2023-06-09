@@ -19,8 +19,6 @@ class StudentSubmissionsRelationManager extends RelationManager
 {
     protected static string $relationship = 'studentSubmissions';
 
-    protected static ?string $recordTitleAttribute = '';
-
     public static function form(Form $form): Form
     {
         return $form->schema([
