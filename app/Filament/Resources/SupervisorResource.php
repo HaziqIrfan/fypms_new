@@ -88,13 +88,13 @@ class SupervisorResource extends Resource
                         ]),
 
                     TextInput::make('user.password')
-                        ->required()
                         ->password()
                         ->dehydrateStateUsing(fn ($state) => \Hash::make($state)) //hash-auto encrypt password
                         ->required(
                             fn (Component $livewire) => $livewire instanceof
                                 Pages\CreateSupervisor
                         )
+                        ->hiddenOn('edit')
                         ->placeholder('Password')
                         ->columnSpan([
                             'default' => 12,

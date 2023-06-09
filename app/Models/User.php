@@ -51,6 +51,15 @@ class User extends Authenticatable implements FilamentUser
     {
         return true;
     }
-
-    
+    public function getRolesNameAttribute()
+    {
+        $roles = "";
+        foreach(auth()->user()->roles as $index =>$role){
+            if($index != 0){
+                $roles.="/";
+            }
+$roles.=$role->name;
+        }
+        return $roles;
+    }
 }

@@ -30,17 +30,7 @@ class StudentSubmissionPolicy
      */
     public function view(User $user, StudentSubmission $studentSubmission)
     {
-        if ($user->can('view_student::submission')) {
-            if (auth()->user()->hasRole('Student')) {
-                if (auth()->user()->student->id != $studentSubmission->student_id) {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        return false;
+        return $user->can('view_student::submission');
     }
 
     /**
@@ -63,18 +53,7 @@ class StudentSubmissionPolicy
      */
     public function update(User $user, StudentSubmission $studentSubmission)
     {
-
-        if ($user->can('update_student::submission')) {
-            if (auth()->user()->hasRole('Student')) {
-                if (auth()->user()->student->id != $studentSubmission->student_id) {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        return false;
+        return $user->can('update_student::submission');
     }
 
     /**
@@ -86,16 +65,7 @@ class StudentSubmissionPolicy
      */
     public function delete(User $user, StudentSubmission $studentSubmission)
     {
-        if ($user->can('delete_student::submission')) {
-            if (auth()->user()->hasRole('Student')) {
-                if (auth()->user()->student->id != $studentSubmission->student_id) {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-        return false;
+        return $user->can('delete_student::submission');
     }
 
     /**
@@ -177,4 +147,5 @@ class StudentSubmissionPolicy
     {
         return $user->can('reorder_student::submission');
     }
+
 }

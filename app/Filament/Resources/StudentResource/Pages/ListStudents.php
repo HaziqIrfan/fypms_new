@@ -18,12 +18,11 @@ class ListStudents extends ListRecords
     protected function getTableQuery(): Builder
     {
 
-        if (Auth::user()->hasRole('Supervisor')) {
+        if (Auth::user()->hasRole('Coordinator') || Auth::user()->hasRole('Super Admin')) {
+            return Student::query();
+        } else if (Auth::user()->hasRole('Supervisor')) {
 
             return Student::where('supervisor_id', auth()->user()->Supervisors->id);
-        }
-        else if (Auth::user()->hasRole('Coordinator')||Auth::user()->hasRole('Super Admin')){
-            return Student::query();
         }
     }
 }
