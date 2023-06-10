@@ -8,13 +8,13 @@ use Filament\Widgets\StatsOverviewWidget\Card;
 
 class SupervisorListOverview extends BaseWidget
 {
+    protected int | string | array $columnSpan = '2';
+
     protected function getCards(): array
     {
         return [
-            Card::make('Total Supervisor', Supervisor::count())
-                // ->description('32k increase')
-                // ->descriptionIcon('heroicon-s-trending-up')
-                // ->color('success'),
+
+
         ];
     }
 }

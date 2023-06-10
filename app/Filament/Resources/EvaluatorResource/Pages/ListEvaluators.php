@@ -18,12 +18,12 @@ class ListEvaluators extends ListRecords
     // protected function getTableQuery(): Builder
     // {
 
-    //     if (Auth::user()->hasRole('Supervisor')) {
+    //     $query = Evaluator::query();
 
-    //         return Evaluator::where('user_id', auth()->user()->Students->id);
+    //     if (Auth::user()->hasRole('Supervisor')) {
+    //         $query->where('user_id', auth()->user()->supervisor->id);
     //     }
-    //     else if (Auth::user()->hasRole('Coordinator')||Auth::user()->hasRole('Super Admin')){
-    //         return Evaluator::query();
-    //     }
+    
+    //     return $query;
     // }
 }

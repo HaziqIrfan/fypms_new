@@ -22,11 +22,11 @@ class EvaluationResultResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-clipboard-check'; //change icon navside-bar
 
-  
+
 
     protected static function shouldRegisterNavigation(): bool
     {
-        if (Auth::user()->hasRole('Student')||Auth::user()->hasRole('Supervisor')) {
+        if (Auth::user()->hasRole('Student') || Auth::user()->hasRole('Supervisor')) {
 
             return false;
         } else {
@@ -112,6 +112,14 @@ class EvaluationResultResource extends Resource
                     ->indicator('Evaluator')
                     ->multiple()
                     ->label('Evaluator'),
+
+                // SelectFilter::make('evaluator_id')
+                //     ->relationship('evaluator', 'name') // Modify 'id' to 'name'
+                //     ->displayUsing(fn ($value) => $value->name) // Display the evaluator's name
+                //     ->searchable() // Enable searching by evaluator's ID
+                //     ->indicator('Evaluator')
+                //     ->multiple()
+                //     ->label('Evaluator'),
             ]);
     }
 

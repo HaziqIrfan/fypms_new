@@ -202,14 +202,14 @@ class StudentResource extends Resource
             ]);
     }
 
-    public static function getRelations(): array
-    {
-        return [
-             StudentResource\RelationManagers\LogbooksRelationManager::class,
-            StudentResource\RelationManagers\StudentSubmissionsRelationManager::class,
-            StudentResource\RelationManagers\EvaluationResultsRelationManager::class,
-        ];
-    }
+    // public static function getRelations(): array
+    // {
+    //     return [
+    //          StudentResource\RelationManagers\LogbooksRelationManager::class,
+    //         StudentResource\RelationManagers\StudentSubmissionsRelationManager::class,
+    //         StudentResource\RelationManagers\EvaluationResultsRelationManager::class,
+    //     ];
+    // }
 
     public static function getPages(): array
     {

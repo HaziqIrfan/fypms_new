@@ -30,34 +30,8 @@ class DashboardPage extends Page
 
     protected function getWidgets(): array
     {
-        if (Auth::user()->hasRole('Student')) {
+      
 
-            //Condition check
-
-            $user = Auth::user();
-            return [];
-        } else if (Auth::user()->hasRole('Supervisor')) {
-
-            //Condition check
-            $user = Auth::user();
-            return [StudentListOverview::class];
-        } else if (Auth::user()->hasRole('Evaluator')) {
-
-            //Condition check
-            $user = Auth::user();
-            return [StudentListOverview::class];
-        } else if (Auth::user()->hasRole('Coordinator')) {
-
-            //Condition check
-            $user = Auth::user();
-            return [StudentListOverview::class, SupervisorListOverview::class, EvaluatorListOverview::class];
-        } else if (Auth::user()->hasRole('Super Admin')) {
-
-            //Condition check
-            $user = Auth::user();
-            return [StudentListOverview::class, SupervisorListOverview::class, EvaluatorListOverview::class];
-        }
-
-        return [StudentListOverview::class, SupervisorListOverview::class, EvaluatorListOverview::class];
+        return [StudentListOverview::class];
     }
 }

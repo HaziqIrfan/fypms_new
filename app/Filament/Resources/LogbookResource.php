@@ -14,6 +14,7 @@ use Filament\Tables\Filters\SelectFilter;
 use App\Filament\Filters\DateRangeFilter;
 use App\Filament\Resources\LogbookResource\Pages;
 use App\Models\Student;
+use Filament\Forms\Components\Textarea;
 use Illuminate\Database\Eloquent\Model;
 
 class LogbookResource extends Resource
@@ -22,7 +23,7 @@ class LogbookResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-book-open'; //change icon navside-bar 
 
- 
+
     public static function form(Form $form): Form
     {
         return $form->schema([
@@ -49,7 +50,9 @@ class LogbookResource extends Resource
                         ]),
 
 
-                    TextInput::make('description')
+                    Textarea::make('description')
+                        ->rows(5)
+                        ->cols(20)
                         ->rules(['max:255', 'string'])
                         ->required()
                         ->placeholder('Description')
@@ -68,16 +71,18 @@ class LogbookResource extends Resource
                             'md' => 12,
                             'lg' => 12,
                         ])
-                    ->hidden(function (string $context) {
-                        if ($context == "create" || $context == "edit") {
-                            if (auth()->user()->hasRole('Student')) {
-                                return true;
+                        ->hidden(function (string $context) {
+                            if ($context == "create" || $context == "edit") {
+                                if (auth()->user()->hasRole('Student')) {
+                                    return true;
+                                }
                             }
-                        }
-                        return false;
-                    }),
+                            return false;
+                        }),
 
-                    TextInput::make('comment')
+                    Textarea::make('comment')
+                        ->rows(5)
+                        ->cols(20)
                         ->rules(['max:255', 'string'])
                         // ->required()
                         ->placeholder('Comment by Supervisor')
@@ -86,14 +91,14 @@ class LogbookResource extends Resource
                             'md' => 12,
                             'lg' => 12,
                         ])
-                    ->hidden(function (string $context) {
-                        if ($context == "create" || $context == "edit") {
-                            if (auth()->user()->hasRole('Student')) {
-                                return true;
+                        ->hidden(function (string $context) {
+                            if ($context == "create" || $context == "edit") {
+                                if (auth()->user()->hasRole('Student')) {
+                                    return true;
+                                }
                             }
-                        }
-                        return false;
-                    }),
+                            return false;
+                        }),
 
 
                 ]),

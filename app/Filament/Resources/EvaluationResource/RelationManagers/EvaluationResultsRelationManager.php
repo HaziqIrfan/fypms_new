@@ -14,6 +14,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms\Components\BelongsToSelect;
+use Filament\Forms\Components\Textarea;
 use Filament\Tables\Filters\MultiSelectFilter;
 use Filament\Resources\RelationManagers\RelationManager;
 use Illuminate\Database\Eloquent\Model;
@@ -28,21 +29,21 @@ class EvaluationResultsRelationManager extends RelationManager
         return $form->schema([
             Grid::make(['default' => 0])->schema([
                 Select::make('student_id')
-                ->rules(['exists:students,id'])
-                ->required()
-                ->Searchable()
-                ->relationship('student', 'name')
-                ->getSearchResultsUsing(function (string $search) {
-                    return Student::whereHas('user', function ($q) use ($search) {
-                        $q->where('name', 'LIKE', "%{$search}%");
-                    })->get()->pluck('name', 'id');
-                })->getOptionLabelFromRecordUsing(fn (Model $record) => $record->name)
-                ->placeholder('Student')
-                ->columnSpan([
-                    'default' => 12,
-                    'md' => 12,
-                    'lg' => 12,
-                ]),
+                    ->rules(['exists:students,id'])
+                    ->required()
+                    ->Searchable()
+                    ->relationship('student', 'name')
+                    ->getSearchResultsUsing(function (string $search) {
+                        return Student::whereHas('user', function ($q) use ($search) {
+                            $q->where('name', 'LIKE', "%{$search}%");
+                        })->get()->pluck('name', 'id');
+                    })->getOptionLabelFromRecordUsing(fn (Model $record) => $record->name)
+                    ->placeholder('Student')
+                    ->columnSpan([
+                        'default' => 12,
+                        'md' => 12,
+                        'lg' => 12,
+                    ]),
 
                 TextInput::make('mark')
                     ->rules(['max:255', 'string'])
@@ -52,8 +53,10 @@ class EvaluationResultsRelationManager extends RelationManager
                         'md' => 12,
                         'lg' => 12,
                     ]),
-                TextInput::make('comment')
+                Textarea::make('comment')
                     ->rules(['max:255', 'string'])
+                    ->rows(5)
+                    ->cols(20)
                     ->placeholder('Comments')
                     ->columnSpan([
                         'default' => 12,
@@ -69,7 +72,7 @@ class EvaluationResultsRelationManager extends RelationManager
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('mark')->limit(50),
-                Tables\Columns\TextColumn::make('comment')->limit(50),
+                // Tables\Columns\TextColumn::make('comment')->limit(50),
                 Tables\Columns\TextColumn::make('evaluation.title')->limit(50),
                 Tables\Columns\TextColumn::make('student.name')->limit(50),
             ])
@@ -118,7 +121,7 @@ class EvaluationResultsRelationManager extends RelationManager
             ])
             ->headerActions([Tables\Actions\CreateAction::make()->mutateFormDataUsing(function (array $data): array {
                 $data['evaluator_id'] = auth()->user()->evaluator->id;
-         
+
                 return $data;
             })])
             ->actions([

@@ -105,7 +105,7 @@ class EvaluatorResource extends Resource
     public static function getRelations(): array
     {
         return [
-            EvaluatorResource\RelationManagers\StudentsRelationManager::class,
+            EvaluatorResource\RelationManagers\StudentsRelationManager::class
         ];
     }
 
