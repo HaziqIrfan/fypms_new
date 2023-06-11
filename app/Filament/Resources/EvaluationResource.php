@@ -21,6 +21,8 @@ class EvaluationResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-clipboard-list'; //change icon navside-bar
 
+    protected static ?string $navigationGroup = 'FYP';
+
     // protected static function shouldRegisterNavigation(): bool
     // {
     //     if (Auth::user()->hasRole('Coordinator') || Auth::user()->hasRole('Super Admin')|| Auth::user()->hasRole('Evaluators')) {
@@ -96,6 +98,7 @@ class EvaluationResource extends Resource
             ->poll('60s')
             ->columns([
                 Tables\Columns\TextColumn::make('title')
+                    ->sortable()
                     ->toggleable()
                     ->searchable()
                     ->limit(50),
@@ -104,9 +107,11 @@ class EvaluationResource extends Resource
                 //     ->searchable()
                 //     ->limit(50),
                 Tables\Columns\TextColumn::make('start_date')
+                    ->sortable()
                     ->toggleable()
                     ->date(),
                 Tables\Columns\TextColumn::make('end_date')
+                    ->sortable()
                     ->toggleable()
                     ->date(),
             ])

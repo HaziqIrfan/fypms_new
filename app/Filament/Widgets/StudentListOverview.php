@@ -46,7 +46,7 @@ class StudentListOverview extends BaseWidget
 
                 Card::make('Total Supervisor', Supervisor::count())
                     ->description('This is total Supervisors')
-                    ->color('primary')
+                    ->color('success')
                     ->descriptionIcon('heroicon-s-academic-cap'),
 
                 Card::make('Total Evaluator', Evaluator::count())

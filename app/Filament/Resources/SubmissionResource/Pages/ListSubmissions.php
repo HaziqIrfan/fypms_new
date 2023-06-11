@@ -8,7 +8,5 @@ use App\Filament\Resources\SubmissionResource;
 
 class ListSubmissions extends ListRecords
 {
-    use HasDescendingOrder;
-
     protected static string $resource = SubmissionResource::class;
 }

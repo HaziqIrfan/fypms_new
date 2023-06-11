@@ -26,7 +26,7 @@ class User extends Authenticatable implements FilamentUser
     use HasProfilePhoto;
     use TwoFactorAuthenticatable;
 
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = ['name', 'email', 'matric_id' ,'password', 'phonenum'];
 
     protected $searchableFields = ['*'];
 
@@ -62,4 +62,6 @@ class User extends Authenticatable implements FilamentUser
         }
         return $roles;
     }
+    
+
 }

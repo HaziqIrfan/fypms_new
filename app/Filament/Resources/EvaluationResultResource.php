@@ -22,7 +22,7 @@ class EvaluationResultResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-clipboard-check'; //change icon navside-bar
 
-
+    protected static ?string $navigationGroup = 'FYP';
 
     protected static function shouldRegisterNavigation(): bool
     {
@@ -88,13 +88,16 @@ class EvaluationResultResource extends Resource
             ->poll('60s')
             ->columns([
                 Tables\Columns\TextColumn::make('mark')
+                    ->sortable()
                     ->toggleable()
                     ->searchable()
                     ->limit(50),
                 Tables\Columns\TextColumn::make('evaluation.title')
+                    ->sortable()
                     ->toggleable()
                     ->limit(50),
                 Tables\Columns\TextColumn::make('evaluator.id')
+                    ->sortable()
                     ->toggleable()
                     ->limit(50),
             ])

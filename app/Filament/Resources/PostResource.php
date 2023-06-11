@@ -12,14 +12,15 @@ use Filament\Forms\Components\RichEditor;
 use App\Filament\Filters\DateRangeFilter;
 use App\Filament\Resources\PostResource\Pages;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Textarea;
 
 class PostResource extends Resource
 {
     protected static ?string $model = Post::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-desktop-computer'; //change icon navside-bar
-
-   
+    
+    protected static ?string $navigationGroup = 'Information';
 
     public static function form(Form $form): Form
     {
@@ -36,7 +37,9 @@ class PostResource extends Resource
                             'lg' => 12,
                         ]),
 
-                    TextInput::make('description')
+                    Textarea::make('description')
+                        ->rows(5)
+                        ->cols(20)
                         ->rules(['max:255', 'string'])
                         ->required()
                         ->placeholder('Description')
@@ -46,20 +49,11 @@ class PostResource extends Resource
                             'lg' => 12,
                         ]),
 
-                    // RichEditor::make('file_path')
-                    //     ->rules(['max:255', 'string'])
-                    //     ->required()
-                    //     ->placeholder('File Path')
-                    //     ->columnSpan([
-                    //         'default' => 12,
-                    //         'md' => 12,
-                    //         'lg' => 12,
-                    //     ]),
-
                     FileUpload::make('file_path') //Refer documentation filament: #File upload
                         ->disk('posts')
                         // ->multiple()
                         ->enableReordering()
+
                         ->enableOpen()
                         ->enableDownload()
                         ->columnSpan([
@@ -79,17 +73,15 @@ class PostResource extends Resource
             ->poll('60s')
             ->columns([
                 Tables\Columns\TextColumn::make('title')
+                    ->sortable()
                     ->toggleable()
                     ->searchable()
                     ->limit(50),
                 Tables\Columns\TextColumn::make('description')
+                    ->sortable()
                     ->toggleable()
                     ->searchable()
                     ->limit(50),
-                // Tables\Columns\TextColumn::make('file_path')
-                //     ->toggleable()
-                //     ->searchable()
-                //     ->limit(50),
             ])
             ->filters([DateRangeFilter::make('created_at')]);
     }

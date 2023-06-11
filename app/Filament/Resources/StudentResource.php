@@ -23,8 +23,9 @@ class StudentResource extends Resource
     protected static ?string $model = Student::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-academic-cap'; //change icon navside-bar
-
     
+    protected static ?string $navigationGroup = 'Assignation';
+
 
     // protected static function shouldRegisterNavigation(): bool
     // {
@@ -76,7 +77,7 @@ class StudentResource extends Resource
                     TextInput::make('user.password')
                         ->required()
                         ->password()
-                        ->hiddenOn(['edit','view'])
+                        ->hiddenOn(['edit', 'view'])
                         ->dehydrateStateUsing(fn ($state) => \Hash::make($state)) //hash-auto encrypt password
                         ->required(
                             fn (Component $livewire) => $livewire instanceof
@@ -166,14 +167,16 @@ class StudentResource extends Resource
             ->poll('60s')
             ->columns([
                 Tables\Columns\TextColumn::make('user.name')
-                ->toggleable()
-                ->searchable()
-                ->limit(50),
+                    ->sortable()
+                    ->toggleable()
+                    ->searchable()
+                    ->limit(50),
                 Tables\Columns\TextColumn::make('project_title')
                     ->toggleable()
                     ->searchable()
                     ->limit(50),
                 Tables\Columns\TextColumn::make('psm_status')
+                    ->sortable()
                     ->toggleable()
                     ->searchable()
                     ->limit(50),
@@ -182,10 +185,12 @@ class StudentResource extends Resource
                 //     ->searchable()
                 //     ->limit(50),
                 Tables\Columns\TextColumn::make('program')
+                    ->sortable()
                     ->toggleable()
                     ->searchable()
                     ->limit(50),
                 Tables\Columns\TextColumn::make('pa_name')
+                    ->sortable()
                     ->toggleable()
                     ->searchable()
                     ->limit(50),

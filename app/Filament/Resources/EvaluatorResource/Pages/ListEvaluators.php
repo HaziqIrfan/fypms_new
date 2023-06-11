@@ -11,8 +11,6 @@ use Illuminate\Support\Facades\Auth;
 
 class ListEvaluators extends ListRecords
 {
-    use HasDescendingOrder;
-
     protected static string $resource = EvaluatorResource::class;
 
     // protected function getTableQuery(): Builder

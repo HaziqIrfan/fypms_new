@@ -8,7 +8,5 @@ use App\Filament\Resources\EvaluationResultResource;
 
 class ListEvaluationResults extends ListRecords
 {
-    use HasDescendingOrder;
-
     protected static string $resource = EvaluationResultResource::class;
 }

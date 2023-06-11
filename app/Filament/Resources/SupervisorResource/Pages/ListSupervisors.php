@@ -12,8 +12,6 @@ use Illuminate\Support\Facades\Auth;
 
 class ListSupervisors extends ListRecords
 {
-    use HasDescendingOrder;
-
     protected static string $resource = SupervisorResource::class;
 
     protected function getTableQuery(): Builder

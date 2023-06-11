@@ -8,7 +8,5 @@ use App\Filament\Traits\HasDescendingOrder;
 
 class ListPosts extends ListRecords
 {
-    use HasDescendingOrder;
-
     protected static string $resource = PostResource::class;
 }

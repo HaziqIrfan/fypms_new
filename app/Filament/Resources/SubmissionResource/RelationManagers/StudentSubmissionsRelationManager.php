@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\SubmissionResource\RelationManagers;
 
+use App\Models\StudentSubmission;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Tables;
 use Filament\Resources\{Form, Table};
@@ -19,6 +21,23 @@ use Illuminate\Support\Facades\Auth;
 class StudentSubmissionsRelationManager extends RelationManager
 {
     protected static string $relationship = 'studentSubmissions';
+    public Model $ownerRecord;
+
+    protected function getTableQuery(): Builder
+    {
+        if (auth()->user()->hasRole('Student')){
+
+            return StudentSubmission::where('submission_id', $this->ownerRecord->id)->where('student_id', auth()->user()->student->id);
+         }
+         else if(auth()->user()->hasRole('Coordinator')){
+           return StudentSubmission::query();
+       }
+         else if(auth()->user()->hasRole('Supervisor')){
+              $students_id=auth()->user()->supervisors->students->pluck('id');
+             return StudentSubmission::where('submission_id', $this->ownerRecord->id)->whereIn('student_id', $students_id);
+         }
+        
+    }
 
     public static function form(Form $form): Form
     {

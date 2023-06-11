@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\User;
 use App\Models\StudentSubmission;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Support\Facades\Auth;
 
 class StudentSubmissionPolicy
 {
@@ -30,6 +31,13 @@ class StudentSubmissionPolicy
      */
     public function view(User $user, StudentSubmission $studentSubmission)
     {
+        if ($user->hasRole('Student')){
+
+            return $studentSubmission->student_id == $user->student->id;
+         }
+         else if($user->hasRole('Supervisor')){
+             return $user->supervisors->students->pluck('id')->contains($studentSubmission->student_id);
+         }
         return $user->can('view_student::submission');
     }
 
@@ -53,6 +61,13 @@ class StudentSubmissionPolicy
      */
     public function update(User $user, StudentSubmission $studentSubmission)
     {
+        if ($user->hasRole('Student')){
+
+            return $studentSubmission->student_id == $user->student->id;
+         }
+         else if($user->hasRole('Supervisor')){
+             return $user->supervisors->students->pluck('id')->contains($studentSubmission->student_id);
+         }
         return $user->can('update_student::submission');
     }
 
@@ -65,6 +80,13 @@ class StudentSubmissionPolicy
      */
     public function delete(User $user, StudentSubmission $studentSubmission)
     {
+        if (auth()->user()->hasRole('Student')){
+
+            return $studentSubmission->student_id == auth()->user()->student->id;
+         }
+         else if(auth()->user()->hasRole('Supervisor')){
+             return auth()->user()->supervisors->students->pluck('id')->contains($studentSubmission->student_id);
+         }
         return $user->can('delete_student::submission');
     }
 
@@ -147,5 +169,4 @@ class StudentSubmissionPolicy
     {
         return $user->can('reorder_student::submission');
     }
-
 }

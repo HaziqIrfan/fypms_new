@@ -19,6 +19,7 @@ class SubmissionResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text'; //change icon navside-bar
 
+    protected static ?string $navigationGroup = 'FYP';    
 
     public static function form(Form $form): Form
     {
@@ -87,6 +88,7 @@ class SubmissionResource extends Resource
             ->poll('60s')
             ->columns([
                 Tables\Columns\TextColumn::make('title')
+                    ->sortable()
                     ->toggleable()
                     ->searchable()
                     ->limit(50),
@@ -95,9 +97,11 @@ class SubmissionResource extends Resource
                 //     ->searchable()
                 //     ->limit(50),
                 Tables\Columns\TextColumn::make('start_date')
+                    ->sortable()
                     ->toggleable()
                     ->date(),
                 Tables\Columns\TextColumn::make('due_date')
+                    ->sortable()
                     ->toggleable()
                     ->date(),
                 // Tables\Columns\TextColumn::make('file_path')

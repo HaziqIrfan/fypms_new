@@ -8,7 +8,5 @@ use App\Filament\Traits\HasDescendingOrder;
 
 class ListUsers extends ListRecords
 {
-    use HasDescendingOrder;
-
     protected static string $resource = UserResource::class;
 }

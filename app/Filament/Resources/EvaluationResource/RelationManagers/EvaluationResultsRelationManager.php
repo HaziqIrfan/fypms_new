@@ -23,6 +23,24 @@ class EvaluationResultsRelationManager extends RelationManager
 {
     protected static string $relationship = 'evaluationResults';
 
+    protected function getTableQuery(): Builder
+    {
+        if (auth()->user()->hasRole('Student')){
+
+            return $this->ownerRecord->evaluationResults()->where('student_id', auth()->user()->student->id)->getQuery();
+         }
+         else if(auth()->user()->hasRole('Coordinator')){
+           return $this->ownerRecord->evaluationResults()->getQuery();
+       }
+         else if(auth()->user()->hasRole('Supervisor')){
+              $students_id=auth()->user()->supervisors->students->pluck('id');
+             return $this->ownerRecord->evaluationResults()->whereIn('student_id', $students_id)->getQuery();
+             
+         }
+        
+    }
+
+
 
     public static function form(Form $form): Form
     {
@@ -32,12 +50,23 @@ class EvaluationResultsRelationManager extends RelationManager
                     ->rules(['exists:students,id'])
                     ->required()
                     ->Searchable()
-                    ->relationship('student', 'name')
+                    ->relationship('student', 'id', function (Builder $query, $record) {
+                        if (
+                            $record == null
+                        ) {
+                            // For create page
+                            return $query->whereHas('user');
+                        } else {
+                            // For edit page
+                            return $query->whereHas('user');
+                        }
+                    })
                     ->getSearchResultsUsing(function (string $search) {
                         return Student::whereHas('user', function ($q) use ($search) {
                             $q->where('name', 'LIKE', "%{$search}%");
-                        })->get()->pluck('name', 'id');
-                    })->getOptionLabelFromRecordUsing(fn (Model $record) => $record->name)
+                            $q->orWhere('matric_id', 'LIKE', "%{$search}%");
+                        })->with('user')->get()->pluck('matric_name', 'id');
+                    })->getOptionLabelFromRecordUsing(fn (Model $record) => $record->matric_name)
                     ->placeholder('Student')
                     ->columnSpan([
                         'default' => 12,
@@ -71,10 +100,15 @@ class EvaluationResultsRelationManager extends RelationManager
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('mark')->limit(50),
-                // Tables\Columns\TextColumn::make('comment')->limit(50),
-                Tables\Columns\TextColumn::make('evaluation.title')->limit(50),
-                Tables\Columns\TextColumn::make('student.name')->limit(50),
+                Tables\Columns\TextColumn::make('mark')
+                    ->sortable()
+                    ->limit(50),
+                Tables\Columns\TextColumn::make('evaluation.title')
+                    ->sortable()
+                    ->limit(50),
+                Tables\Columns\TextColumn::make('student.user.matric_id')
+                    ->label('Matric ID')
+                    ->limit(50),
             ])
             ->filters([
                 Tables\Filters\Filter::make('created_at')

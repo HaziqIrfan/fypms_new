@@ -23,6 +23,7 @@ class LogbookResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-book-open'; //change icon navside-bar 
 
+    protected static ?string $navigationGroup = 'FYP';
 
     public static function form(Form $form): Form
     {
@@ -33,6 +34,36 @@ class LogbookResource extends Resource
                         ->rules(['date'])
                         ->required()
                         ->placeholder('Today Date')
+                        ->columnSpan([
+                            'default' => 12,
+                            'md' => 12,
+                            'lg' => 12,
+                        ]),
+
+                    TextInput::make('user.name')
+                        ->rules(['max:255', 'string'])
+                        ->required()
+                        ->placeholder('Name')
+                        ->columnSpan([
+                            'default' => 12,
+                            'md' => 12,
+                            'lg' => 12,
+                        ]),
+
+                    TextInput::make('user.matric_id')
+                        ->rules(['max:255', 'string'])
+                        ->required()
+                        ->placeholder('Matric ID')
+                        ->columnSpan([
+                            'default' => 12,
+                            'md' => 12,
+                            'lg' => 12,
+                        ]),
+
+                    TextInput::make('student.psm_status')
+                        ->rules(['max:255', 'string'])
+                        ->required()
+                        ->placeholder('PSM Status')
                         ->columnSpan([
                             'default' => 12,
                             'md' => 12,
@@ -112,9 +143,11 @@ class LogbookResource extends Resource
             ->poll('60s')
             ->columns([
                 Tables\Columns\TextColumn::make('datetime')
+                    ->sortable()
                     ->toggleable()
                     ->date(),
                 Tables\Columns\TextColumn::make('week')
+                    ->sortable()
                     ->toggleable()
                     ->searchable()
                     ->limit(50),

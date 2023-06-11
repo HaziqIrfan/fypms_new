@@ -22,6 +22,7 @@ class EvaluatorResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-users'; //change icon navside-bar
 
+    protected static ?string $navigationGroup = 'Assignation';
 
     // protected static function shouldRegisterNavigation(): bool
     // {
@@ -89,7 +90,8 @@ class EvaluatorResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('user.name')
                     ->searchable() //search by name
-                    ->limit(50),
+                    ->limit(50)
+                    ->sortable(),
             ])
             ->filters([
                 DateRangeFilter::make('created_at'),

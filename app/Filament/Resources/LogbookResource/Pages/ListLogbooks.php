@@ -12,8 +12,6 @@ use Illuminate\Support\Facades\Auth;
 
 class ListLogbooks extends ListRecords
 {
-    use HasDescendingOrder;
-
     protected static string $resource = LogbookResource::class;
 
     protected function getTableQuery(): Builder

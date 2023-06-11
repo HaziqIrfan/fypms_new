@@ -11,8 +11,6 @@ use Illuminate\Support\Facades\Auth;
 
 class ListStudents extends ListRecords
 {
-    use HasDescendingOrder;
-
     protected static string $resource = StudentResource::class;
 
     protected function getTableQuery(): Builder

@@ -18,6 +18,7 @@ class CreateSupervisor extends CreateRecord
             $user = User::create($data['user']); //create user 
             $user->assignRole('Supervisor');
             $user->evaluator()->create();
+            $user->assignRole('Evaluator');
             if ($data['is_coordinator']) {
                 $user->assignRole('Coordinator');
             }

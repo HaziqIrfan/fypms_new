@@ -58,4 +58,8 @@ class Student extends Model
     {
         return $this->user->name; 
     }
+
+    public function getMatricNameAttribute(){
+        return $this->user->matric_id."-".$this->user->name; //ex output: CB20161-WAN MUHAMAD HAZIQ IRFAN 
+    }
 }

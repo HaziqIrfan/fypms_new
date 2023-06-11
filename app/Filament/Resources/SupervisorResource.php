@@ -28,6 +28,8 @@ class SupervisorResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-users'; //change icon navside-bar
 
+    protected static ?string $navigationGroup = 'Supervisor/Evaluator';
+
     public static function getPluralModelLabel(): string
     {
 
@@ -64,6 +66,16 @@ class SupervisorResource extends Resource
                             'lg' => 12,
                         ]),
 
+                    TextInput::make('user.matric_id') //user.name = table user, column name 
+                        ->rules(['max:255', 'string'])
+                        ->required()
+                        ->placeholder('Matric ID')
+                        ->columnSpan([
+                            'default' => 12,
+                            'md' => 12,
+                            'lg' => 12,
+                        ]),
+
                     TextInput::make('user.email') //user.email = table user, column email 
                         ->rules(['email'])
                         ->required()
@@ -92,7 +104,19 @@ class SupervisorResource extends Resource
                                 Pages\CreateSupervisor
                         )
                         ->hiddenOn(['edit', 'view'])
+                        ->default('12345678')
+                        ->hint('default password: 12345678')
                         ->placeholder('Password')
+                        ->columnSpan([
+                            'default' => 12,
+                            'md' => 12,
+                            'lg' => 12,
+                        ]),
+
+                    TextInput::make('user.phonenum') //user.name = table user, column name 
+                        ->rules(['max:255', 'string'])
+                        ->required()
+                        ->placeholder('Phone Number')
                         ->columnSpan([
                             'default' => 12,
                             'md' => 12,
@@ -102,7 +126,7 @@ class SupervisorResource extends Resource
                     TextInput::make('background')
                         ->rules(['max:255', 'string'])
                         ->required()
-                        ->placeholder('Background')
+                        ->placeholder('Background/Expertise')
                         ->columnSpan([
                             'default' => 12,
                             'md' => 12,
@@ -143,17 +167,20 @@ class SupervisorResource extends Resource
         return $table
             ->poll('60s')
             ->columns([
+                Tables\Columns\TextColumn::make('user.name')
+                    ->toggleable()
+                    ->limit(50),
                 Tables\Columns\TextColumn::make('background')
+                    ->sortable()
                     ->toggleable()
                     ->searchable()
                     ->limit(50),
                 Tables\Columns\TextColumn::make('availability')
+                    ->sortable()
                     ->toggleable()
                     ->searchable()
                     ->limit(50),
-                Tables\Columns\TextColumn::make('user.name')
-                    ->toggleable()
-                    ->limit(50),
+
             ])
             ->filters([
                 DateRangeFilter::make('created_at'),
