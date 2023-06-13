@@ -29,7 +29,7 @@ class StudentSubmissionsRelationManager extends RelationManager
 
             return StudentSubmission::where('submission_id', $this->ownerRecord->id)->where('student_id', auth()->user()->student->id);
          }
-         else if(auth()->user()->hasRole('Coordinator')){
+         else if(auth()->user()->hasRole('Coordinator')||auth()->user()->hasRole('Super Admin')){
            return StudentSubmission::query();
        }
          else if(auth()->user()->hasRole('Supervisor')){

@@ -25,19 +25,15 @@ class EvaluationResultsRelationManager extends RelationManager
 
     protected function getTableQuery(): Builder
     {
-        if (auth()->user()->hasRole('Student')){
+        if (auth()->user()->hasRole('Student')) {
 
             return $this->ownerRecord->evaluationResults()->where('student_id', auth()->user()->student->id)->getQuery();
-         }
-         else if(auth()->user()->hasRole('Coordinator')){
-           return $this->ownerRecord->evaluationResults()->getQuery();
-       }
-         else if(auth()->user()->hasRole('Supervisor')){
-              $students_id=auth()->user()->supervisors->students->pluck('id');
-             return $this->ownerRecord->evaluationResults()->whereIn('student_id', $students_id)->getQuery();
-             
-         }
-        
+        } else if (auth()->user()->hasRole('Coordinator') || auth()->user()->hasRole('Super Admin')) {
+            return $this->ownerRecord->evaluationResults()->getQuery();
+        } else if (auth()->user()->hasRole('Supervisor')) {
+            $students_id = auth()->user()->supervisors->students->pluck('id');
+            return $this->ownerRecord->evaluationResults()->whereIn('student_id', $students_id)->getQuery();
+        }
     }
 
 

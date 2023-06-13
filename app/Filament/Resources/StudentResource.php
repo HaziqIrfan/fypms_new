@@ -23,7 +23,7 @@ class StudentResource extends Resource
     protected static ?string $model = Student::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-academic-cap'; //change icon navside-bar
-    
+
     protected static ?string $navigationGroup = 'Assignation';
 
 
@@ -73,10 +73,21 @@ class StudentResource extends Resource
                             'md' => 12,
                             'lg' => 12,
                         ]),
+                    TextInput::make('user.phonenum') //user.name = table user, column name 
+                        ->rules(['max:255', 'string'])
+                        ->required()
+                        ->placeholder('Phone Number')
+                        ->columnSpan([
+                            'default' => 12,
+                            'md' => 12,
+                            'lg' => 12,
+                        ]),
+
 
                     TextInput::make('user.password')
                         ->required()
                         ->password()
+                        ->default('12345678')
                         ->hiddenOn(['edit', 'view'])
                         ->dehydrateStateUsing(fn ($state) => \Hash::make($state)) //hash-auto encrypt password
                         ->required(
