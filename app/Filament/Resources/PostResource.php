@@ -53,7 +53,7 @@ class PostResource extends Resource
                         ->disk('posts')
                         // ->multiple()
                         ->enableReordering()
-
+                        ->preserveFilenames()
                         ->enableOpen()
                         ->enableDownload()
                         ->columnSpan([
