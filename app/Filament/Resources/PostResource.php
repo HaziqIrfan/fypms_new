@@ -77,11 +77,11 @@ class PostResource extends Resource
                     ->toggleable()
                     ->searchable()
                     ->limit(50),
-                Tables\Columns\TextColumn::make('description')
-                    ->sortable()
-                    ->toggleable()
-                    ->searchable()
-                    ->limit(50),
+                // Tables\Columns\TextColumn::make('description')
+                //     ->sortable()
+                //     ->toggleable()
+                //     ->searchable()
+                //     ->limit(50),
             ])
             ->filters([DateRangeFilter::make('created_at')]);
     }
