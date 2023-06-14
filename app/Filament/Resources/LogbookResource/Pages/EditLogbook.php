@@ -8,4 +8,6 @@ use App\Filament\Resources\LogbookResource;
 class EditLogbook extends EditRecord
 {
     protected static string $resource = LogbookResource::class;
+
+   
 }

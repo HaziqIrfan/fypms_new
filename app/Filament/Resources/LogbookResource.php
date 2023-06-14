@@ -25,6 +25,8 @@ class LogbookResource extends Resource
 
     protected static ?string $navigationGroup = 'FYP';
 
+
+
     public static function form(Form $form): Form
     {
         return $form->schema([
@@ -43,6 +45,7 @@ class LogbookResource extends Resource
                     TextInput::make('user.name')
                         ->rules(['max:255', 'string'])
                         ->required()
+                        ->hiddenOn(['create', 'edit'])
                         ->placeholder('Name')
                         ->columnSpan([
                             'default' => 12,

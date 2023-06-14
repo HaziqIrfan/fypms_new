@@ -48,10 +48,6 @@ class StudentsRelationManager extends RelationManager
                         ->Searchable()
                         ->relationship('user', 'name')
                         ->getSearchResultsUsing(function (string $search) use($action){
-                            // dd($action->getRecordSelect());
-                            // dd(Student::whereHas('user', function ($q) use ($search) {
-                            //     $q->where('name', 'LIKE', "%{$search}%");
-                            // })->get());
                             return Student::whereHas('user', function ($q) use ($search) {
                                 $q->where('name', 'LIKE', "%{$search}%");
                             })->get()->pluck('name', 'user_id');

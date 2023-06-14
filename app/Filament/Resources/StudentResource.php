@@ -73,6 +73,17 @@ class StudentResource extends Resource
                             'md' => 12,
                             'lg' => 12,
                         ]),
+
+                    TextInput::make('user.matric_id') //user.name = table user, column name 
+                        ->rules(['max:255', 'string'])
+                        ->required()
+                        ->placeholder('Matric ID')
+                        ->columnSpan([
+                            'default' => 12,
+                            'md' => 12,
+                            'lg' => 12,
+                        ]),
+
                     TextInput::make('user.phonenum') //user.name = table user, column name 
                         ->rules(['max:255', 'string'])
                         ->required()

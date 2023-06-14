@@ -24,7 +24,7 @@ class ListLogbooks extends ListRecords
             });
         } else if (Auth::user()->hasRole('Supervisor')) {
             return Logbook::whereHas('student', function ($q) {
-                $q->where('supervisor_id', auth()->user()->Supervisors->id);
+                $q->whereIn('id', auth()->user()->supervisors->students->pluck('id'));
             });
         } else if (Auth::user()->hasRole('Coordinator') || Auth::user()->hasRole('Super Admin')) {
             return Logbook::query();

@@ -1,25 +1,15 @@
-auth()->user()
-auth()->user()->student
-auth()->user()->supervisors
-auth()->user()->supervisors
-auth()->user()->student
-auth()->user()->supervisors
-auth()->user()->supervisors
-auth()->user()->supervisors
-auth()->user()->supervisors
-auth()->user()->supervisors
-auth()->user()->supervisors
-auth()->user()->supervisors
-auth()->user()->supervisors
-auth()->user()->supervisors
-auth()->user()->supervisors
-auth()->user()->supervisors
-auth()->user()->supervisors->students
-auth()->user()->supervisors->students->value('id')
-auth()->user()->supervisors->students->pluck('id')
-auth()->user()->supervisors->students->pluck('id')->toArray()
-auth()->user()->supervisors->students->pluck('id')
-auth()->user()->supervisors->students->pluck('id')->contains()
-auth()->user()->supervisors->students->pluck('id')->contains(3)
-auth()->user()->supervisors->students->pluck('id')->contains(2)
-auth()->user()->supervisors->students->pluck('id')->contains(22)
+$this->record->student
+$data['student']['matric_id'] = $this->record->student;
+$data['student']['matric_id'] = $this->record->student;
+$data['user']['matric_id'] = $this->record->student->user->matric_id;
+$data['user']['matric_id'] = $this->record->student->user->matric_id;
+$data['user']['matric_id'] = $this->record->student->user->matric_id;
+$this->record->student->user->matric_id;
+$this->record->student->user->matric_id;
+$this->record->student->user->matric_id;
+$this->record->student->user->matric_id;
+$this->record->student->user->matric_id;
+$this->record->student->user->matric_id;
+$this->record->student->user->matric_id;
+record->student->user->matric_id;
+student->user->matric_id;
