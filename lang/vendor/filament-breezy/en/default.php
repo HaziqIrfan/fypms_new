@@ -120,7 +120,7 @@ return [
         ],
     ],
     "fields" => [
-        "email" => "Email",
+        "email" => "Matric ID",
         "login" => "Matric ID",
         "name" => "Name",
         "password" => "Password",

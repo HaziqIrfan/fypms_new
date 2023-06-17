@@ -22,12 +22,12 @@ class ListLogbooks extends ListRecords
             return Logbook::whereHas('student', function ($q) {
                 $q->where('user_id', auth()->user()->id);
             });
+        } else if (Auth::user()->hasRole('Coordinator') || Auth::user()->hasRole('Super Admin')) {
+            return Logbook::query();
         } else if (Auth::user()->hasRole('Supervisor')) {
             return Logbook::whereHas('student', function ($q) {
                 $q->whereIn('id', auth()->user()->supervisors->students->pluck('id'));
             });
-        } else if (Auth::user()->hasRole('Coordinator') || Auth::user()->hasRole('Super Admin')) {
-            return Logbook::query();
         }
     }
 }

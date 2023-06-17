@@ -123,10 +123,43 @@ class SupervisorResource extends Resource
                             'lg' => 12,
                         ]),
 
-                    TextInput::make('background')
-                        ->rules(['max:255', 'string'])
+                    // TextInput::make('background')
+                    //     ->rules(['max:255', 'string'])
+                    //     ->required()
+                    //     ->placeholder('Background/Expertise')
+                    //     ->columnSpan([
+                    //         'default' => 12,
+                    //         'md' => 12,
+                    //         'lg' => 12,
+                    //     ]),
+
+                    // Select::make('background')
+                    // ->required()
+                    //     ->options([
+                    //         'Diploma In Computer Science' => 'Diploma In Computer Science',
+                    //         'Bachelor of Computer Science (Software Engineering) with Honours' => 'Bachelor of Computer Science (Software Engineering) with Honours',
+                    //         'Bachelor of Computer Science (Computer System and Nerworking) with Honours' => 'Bachelor of Computer Science (Computer System and Nerworking) with Honours',
+                    //         'Bachelor of Computer Science (Graphics and Multimedia Technology) with Honours' => 'Bachelor of Computer Science (Graphics and Multimedia Technology) with Honours',
+                    //         'Bachelor of Computer Science (Cyber Security) with Honours' => 'Bachelor of Computer Science (Cyber Security) with Honours',
+                    //     ]),
+
+                        Select::make('background')
                         ->required()
-                        ->placeholder('Background/Expertise')
+                            ->options([
+                                'DSSim' => 'DSSim',
+                                'CYSig' => 'CYSig',
+                                'CNRG' => 'CNRG',
+                                'MIRG' => 'MIRG',
+                                'SCORE' => 'SCORE',
+                                'ISP' => 'ISP',
+                                'ECUTECH' => 'ECUTECH',
+                                'DBIS' => 'DBIS',
+                                'KECL' => 'KECL',
+                                'VISIC' => 'VISIC',
+                                'CSRG' => 'CSRG',
+                                'SERG' => 'SERG',
+                                'IOT CAPSTONE' => 'IOT CAPSTONE',
+                            ])
                         ->columnSpan([
                             'default' => 12,
                             'md' => 12,

@@ -121,10 +121,14 @@ class StudentResource extends Resource
                             'lg' => 12,
                         ]),
 
-                    TextInput::make('psm_status')
-                        ->rules(['max:255', 'string'])
+                    Select::make('psm_status')
                         ->required()
-                        ->placeholder('Psm Status')
+                        ->options([
+                            'PTA 1' => 'PTA 1',
+                            'PTA 2' => 'PTA 2',
+                            'PSM 1' => 'PSM 1',
+                            'PSM 2' => 'PSM 2',
+                        ])
                         ->columnSpan([
                             'default' => 12,
                             'md' => 12,
@@ -141,15 +145,31 @@ class StudentResource extends Resource
                             'lg' => 12,
                         ]),
 
-                    TextInput::make('program')
-                        ->rules(['max:255', 'string'])
+                    // TextInput::make('program')
+                    //     ->rules(['max:255', 'string'])
+                    //     ->required()
+                    //     ->placeholder('Program')
+                    //     ->columnSpan([
+                    //         'default' => 12,
+                    //         'md' => 12,
+                    //         'lg' => 12,
+                    //     ]),
+
+                    Select::make('program')
                         ->required()
-                        ->placeholder('Program')
+                        ->options([
+                            'Diploma In Computer Science' => 'Diploma In Computer Science',
+                            'Bachelor of Computer Science (Software Engineering) with Honours' => 'Bachelor of Computer Science (Software Engineering) with Honours',
+                            'Bachelor of Computer Science (Computer System and Nerworking) with Honours' => 'Bachelor of Computer Science (Computer System and Nerworking) with Honours',
+                            'Bachelor of Computer Science (Graphics and Multimedia Technology) with Honours' => 'Bachelor of Computer Science (Graphics and Multimedia Technology) with Honours',
+                            'Bachelor of Computer Science (Cyber Security) with Honours' => 'Bachelor of Computer Science (Cyber Security) with Honours',
+                        ])
                         ->columnSpan([
                             'default' => 12,
                             'md' => 12,
                             'lg' => 12,
                         ]),
+
 
                     TextInput::make('pa_name')
                         ->rules(['max:255', 'string'])
@@ -189,15 +209,18 @@ class StudentResource extends Resource
             ->poll('60s')
             ->columns([
                 Tables\Columns\TextColumn::make('user.name')
+                    ->label('Student Name')
                     ->sortable()
                     ->toggleable()
                     ->searchable()
                     ->limit(50),
                 Tables\Columns\TextColumn::make('project_title')
+                    ->label('Project Title')
                     ->toggleable()
                     ->searchable()
                     ->limit(50),
                 Tables\Columns\TextColumn::make('psm_status')
+                    ->label('Status')
                     ->sortable()
                     ->toggleable()
                     ->searchable()
@@ -207,16 +230,16 @@ class StudentResource extends Resource
                 //     ->searchable()
                 //     ->limit(50),
                 Tables\Columns\TextColumn::make('program')
+                    ->label('Student Program')
                     ->sortable()
                     ->toggleable()
                     ->searchable()
                     ->limit(50),
-                Tables\Columns\TextColumn::make('pa_name')
-                    ->sortable()
-                    ->toggleable()
-                    ->searchable()
-                    ->limit(50),
-
+                // Tables\Columns\TextColumn::make('pa_name')
+                //     ->sortable()
+                //     ->toggleable()
+                //     ->searchable()
+                //     ->limit(50),
             ])
             ->filters([
                 DateRangeFilter::make('created_at'),
