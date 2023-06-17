@@ -54,6 +54,6 @@ class StudentListOverview extends BaseWidget
                     ->descriptionIcon('heroicon-s-academic-cap')
                     ->color('danger'),
             ];
-        }
+        } 
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages;
 
+use App\Filament\Widgets\BannerOverview;
 use App\Filament\Widgets\DashboardOverview;
 use App\Filament\Widgets\EvaluatorListOverview;
 use App\Filament\Widgets\StatsOverview;
@@ -32,6 +33,8 @@ class DashboardPage extends Page
     {
       
 
-        return [StudentListOverview::class];
+        return [
+            BannerOverview::class,
+            StudentListOverview::class];
     }
 }

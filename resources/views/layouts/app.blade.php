@@ -15,6 +15,8 @@
         
         <!-- Icons -->
         <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css" rel="stylesheet" />
         
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -54,7 +56,7 @@
         @if (session()->has('success')) 
         <script>
             var notyf = new Notyf({dismissible: true})
-            notyf.success('{{ session('success') }}')
+            notyf.success('{{ session("success") }}')
         </script> 
         @endif
         
@@ -86,5 +88,6 @@
                 })
             })
         </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
     </body>
 </html>
